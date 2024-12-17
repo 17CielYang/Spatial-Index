@@ -1,0 +1,515 @@
+
+---
+events:
+  -
+    kind: "message-v1"
+    backtrace:
+      - "D:/Program Files (x86)/Microsoft Visual Studio2022/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.29/Modules/CMakeDetermineSystem.cmake:205 (message)"
+      - "CMakeLists.txt:3 (project)"
+    message: |
+      The system is: Windows - 10.0.22631 - AMD64
+  -
+    kind: "message-v1"
+    backtrace:
+      - "D:/Program Files (x86)/Microsoft Visual Studio2022/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.29/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "D:/Program Files (x86)/Microsoft Visual Studio2022/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.29/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "D:/Program Files (x86)/Microsoft Visual Studio2022/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.29/Modules/CMakeDetermineCXXCompiler.cmake:126 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "CMakeLists.txt:3 (project)"
+    message: |
+      Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" succeeded.
+      Compiler: D:/Program Files (x86)/Microsoft Visual Studio2022/VC/Tools/MSVC/14.41.34120/bin/Hostx64/x64/cl.exe 
+      Build flags: 
+      Id flags:  
+      
+      The output was:
+      0
+      用于 x64 的 Microsoft (R) C/C++ 优化编译器 19.41.34123 版
+      版权所有(C) Microsoft Corporation。保留所有权利。
+      
+      CMakeCXXCompilerId.cpp
+      Microsoft (R) Incremental Linker Version 14.41.34123.0
+      Copyright (C) Microsoft Corporation.  All rights reserved.
+      
+      /out:CMakeCXXCompilerId.exe 
+      CMakeCXXCompilerId.obj 
+      
+      
+      Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "CMakeCXXCompilerId.exe"
+      
+      Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "CMakeCXXCompilerId.obj"
+      
+      The CXX compiler identification is MSVC, found in:
+        D:/school_3/database/hw6-2024/hw6/hw6-Option B/out/build/x64-Debug/CMakeFiles/3.29.5-msvc4/CompilerIdCXX/CMakeCXXCompilerId.exe
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "D:/Program Files (x86)/Microsoft Visual Studio2022/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.29/Modules/CMakeDetermineCompilerId.cmake:1216 (message)"
+      - "D:/Program Files (x86)/Microsoft Visual Studio2022/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.29/Modules/CMakeDetermineCompilerId.cmake:250 (CMAKE_DETERMINE_MSVC_SHOWINCLUDES_PREFIX)"
+      - "D:/Program Files (x86)/Microsoft Visual Studio2022/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.29/Modules/CMakeDetermineCXXCompiler.cmake:126 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "CMakeLists.txt:3 (project)"
+    message: |
+      Detecting CXX compiler /showIncludes prefix:
+        main.c
+        注意: 包含文件:  D:\\school_3\\database\\hw6-2024\\hw6\\hw6-Option B\\out\\build\\x64-Debug\\CMakeFiles\\ShowIncludes\\foo.h
+        
+      Found prefix "注意: 包含文件:  "
+  -
+    kind: "message-v1"
+    backtrace:
+      - "D:/Program Files (x86)/Microsoft Visual Studio2022/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.29/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "D:/Program Files (x86)/Microsoft Visual Studio2022/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.29/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "D:/Program Files (x86)/Microsoft Visual Studio2022/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.29/Modules/CMakeDetermineCCompiler.cmake:123 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "CMakeLists.txt:3 (project)"
+    message: |
+      Compiling the C compiler identification source file "CMakeCCompilerId.c" succeeded.
+      Compiler: D:/Program Files (x86)/Microsoft Visual Studio2022/VC/Tools/MSVC/14.41.34120/bin/Hostx64/x64/cl.exe 
+      Build flags: 
+      Id flags:  
+      
+      The output was:
+      0
+      用于 x64 的 Microsoft (R) C/C++ 优化编译器 19.41.34123 版
+      版权所有(C) Microsoft Corporation。保留所有权利。
+      
+      CMakeCCompilerId.c
+      Microsoft (R) Incremental Linker Version 14.41.34123.0
+      Copyright (C) Microsoft Corporation.  All rights reserved.
+      
+      /out:CMakeCCompilerId.exe 
+      CMakeCCompilerId.obj 
+      
+      
+      Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "CMakeCCompilerId.exe"
+      
+      Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "CMakeCCompilerId.obj"
+      
+      The C compiler identification is MSVC, found in:
+        D:/school_3/database/hw6-2024/hw6/hw6-Option B/out/build/x64-Debug/CMakeFiles/3.29.5-msvc4/CompilerIdC/CMakeCCompilerId.exe
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "D:/Program Files (x86)/Microsoft Visual Studio2022/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.29/Modules/CMakeDetermineCompilerId.cmake:1216 (message)"
+      - "D:/Program Files (x86)/Microsoft Visual Studio2022/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.29/Modules/CMakeDetermineCompilerId.cmake:250 (CMAKE_DETERMINE_MSVC_SHOWINCLUDES_PREFIX)"
+      - "D:/Program Files (x86)/Microsoft Visual Studio2022/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.29/Modules/CMakeDetermineCCompiler.cmake:123 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "CMakeLists.txt:3 (project)"
+    message: |
+      Detecting C compiler /showIncludes prefix:
+        main.c
+        注意: 包含文件:  D:\\school_3\\database\\hw6-2024\\hw6\\hw6-Option B\\out\\build\\x64-Debug\\CMakeFiles\\ShowIncludes\\foo.h
+        
+      Found prefix "注意: 包含文件:  "
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "D:/Program Files (x86)/Microsoft Visual Studio2022/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.29/Modules/CMakeDetermineCompilerABI.cmake:67 (try_compile)"
+      - "D:/Program Files (x86)/Microsoft Visual Studio2022/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.29/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:3 (project)"
+    checks:
+      - "Detecting CXX compiler ABI info"
+    directories:
+      source: "D:/school_3/database/hw6-2024/hw6/hw6-Option B/out/build/x64-Debug/CMakeFiles/CMakeScratch/TryCompile-sykgwh"
+      binary: "D:/school_3/database/hw6-2024/hw6/hw6-Option B/out/build/x64-Debug/CMakeFiles/CMakeScratch/TryCompile-sykgwh"
+    cmakeVariables:
+      CMAKE_CXX_FLAGS: "/DWIN32 /D_WINDOWS /GR /EHsc"
+      CMAKE_CXX_FLAGS_DEBUG: "/Zi /Ob0 /Od /RTC1"
+      CMAKE_CXX_SCAN_FOR_MODULES: "OFF"
+      CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
+    buildResult:
+      variable: "CMAKE_CXX_ABI_COMPILED"
+      cached: true
+      stdout: |
+        Change Dir: 'D:/school_3/database/hw6-2024/hw6/hw6-Option B/out/build/x64-Debug/CMakeFiles/CMakeScratch/TryCompile-sykgwh'
+        
+        Run Build Command(s): "D:/Program Files (x86)/Microsoft Visual Studio2022/Common7/IDE/CommonExtensions/Microsoft/CMake/Ninja/ninja.exe" -v cmTC_c42a5
+        [1/2] D:\\PROGRA~1\\MICROS~1\\VC\\Tools\\MSVC\\1441~1.341\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP   /DWIN32 /D_WINDOWS /GR /EHsc  /Zi /Ob0 /Od /RTC1 -MDd /showIncludes /FoCMakeFiles\\cmTC_c42a5.dir\\CMakeCXXCompilerABI.cpp.obj /FdCMakeFiles\\cmTC_c42a5.dir\\ /FS -c "D:\\Program Files (x86)\\Microsoft Visual Studio2022\\Common7\\IDE\\CommonExtensions\\Microsoft\\CMake\\CMake\\share\\cmake-3.29\\Modules\\CMakeCXXCompilerABI.cpp"
+        [2/2] C:\\WINDOWS\\system32\\cmd.exe /C "cd . && "D:\\Program Files (x86)\\Microsoft Visual Studio2022\\Common7\\IDE\\CommonExtensions\\Microsoft\\CMake\\CMake\\bin\\cmake.exe" -E vs_link_exe --intdir=CMakeFiles\\cmTC_c42a5.dir --rc=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100226~1.0\\x64\\rc.exe --mt=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100226~1.0\\x64\\mt.exe --manifests  -- D:\\PROGRA~1\\MICROS~1\\VC\\Tools\\MSVC\\1441~1.341\\bin\\Hostx64\\x64\\link.exe /nologo CMakeFiles\\cmTC_c42a5.dir\\CMakeCXXCompilerABI.cpp.obj  /out:cmTC_c42a5.exe /implib:cmTC_c42a5.lib /pdb:cmTC_c42a5.pdb /version:0.0 /machine:x64  /debug /INCREMENTAL /subsystem:console  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib && cd ."
+        
+      exitCode: 0
+  -
+    kind: "message-v1"
+    backtrace:
+      - "D:/Program Files (x86)/Microsoft Visual Studio2022/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.29/Modules/CMakeDetermineCompilerABI.cmake:173 (message)"
+      - "D:/Program Files (x86)/Microsoft Visual Studio2022/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.29/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:3 (project)"
+    message: |
+      Parsed CXX implicit link information:
+        link line regex: [^( *|.*[/\\])(ld[0-9]*(\\.[a-z]+)?|link\\.exe|lld-link(\\.exe)?|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\\]+-)?ld|collect2)[^/\\]*( |$)]
+        linker tool regex: [^[ 	]*(->|")?[ 	]*(([^"]*[/\\])?(ld[0-9]*(\\.[a-z]+)?|link\\.exe|lld-link(\\.exe)?))("|,| |$)]
+        linker tool for 'CXX': D:/PROGRA~1/MICROS~1/VC/Tools/MSVC/1441~1.341/bin/Hostx64/x64/link.exe
+        implicit libs: []
+        implicit objs: []
+        implicit dirs: []
+        implicit fwks: []
+      
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "D:/Program Files (x86)/Microsoft Visual Studio2022/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.29/Modules/Internal/CMakeDetermineLinkerId.cmake:40 (message)"
+      - "D:/Program Files (x86)/Microsoft Visual Studio2022/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.29/Modules/CMakeDetermineCompilerABI.cmake:210 (cmake_determine_linker_id)"
+      - "D:/Program Files (x86)/Microsoft Visual Studio2022/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.29/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:3 (project)"
+    message: |
+      Running the CXX compiler's linker: "D:/PROGRA~1/MICROS~1/VC/Tools/MSVC/1441~1.341/bin/Hostx64/x64/link.exe" "-v"
+      Microsoft (R) Incremental Linker Version 14.41.34123.0
+      Copyright (C) Microsoft Corporation.  All rights reserved.
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "D:/Program Files (x86)/Microsoft Visual Studio2022/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.29/Modules/CMakeDetermineCompilerABI.cmake:67 (try_compile)"
+      - "D:/Program Files (x86)/Microsoft Visual Studio2022/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.29/Modules/CMakeTestCCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:3 (project)"
+    checks:
+      - "Detecting C compiler ABI info"
+    directories:
+      source: "D:/school_3/database/hw6-2024/hw6/hw6-Option B/out/build/x64-Debug/CMakeFiles/CMakeScratch/TryCompile-qo33by"
+      binary: "D:/school_3/database/hw6-2024/hw6/hw6-Option B/out/build/x64-Debug/CMakeFiles/CMakeScratch/TryCompile-qo33by"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS"
+      CMAKE_C_FLAGS_DEBUG: "/Zi /Ob0 /Od /RTC1"
+      CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
+    buildResult:
+      variable: "CMAKE_C_ABI_COMPILED"
+      cached: true
+      stdout: |
+        Change Dir: 'D:/school_3/database/hw6-2024/hw6/hw6-Option B/out/build/x64-Debug/CMakeFiles/CMakeScratch/TryCompile-qo33by'
+        
+        Run Build Command(s): "D:/Program Files (x86)/Microsoft Visual Studio2022/Common7/IDE/CommonExtensions/Microsoft/CMake/Ninja/ninja.exe" -v cmTC_c1c32
+        [1/2] D:\\PROGRA~1\\MICROS~1\\VC\\Tools\\MSVC\\1441~1.341\\bin\\Hostx64\\x64\\cl.exe  /nologo   /DWIN32 /D_WINDOWS  /Zi /Ob0 /Od /RTC1 -MDd /showIncludes /FoCMakeFiles\\cmTC_c1c32.dir\\CMakeCCompilerABI.c.obj /FdCMakeFiles\\cmTC_c1c32.dir\\ /FS -c "D:\\Program Files (x86)\\Microsoft Visual Studio2022\\Common7\\IDE\\CommonExtensions\\Microsoft\\CMake\\CMake\\share\\cmake-3.29\\Modules\\CMakeCCompilerABI.c"
+        [2/2] C:\\WINDOWS\\system32\\cmd.exe /C "cd . && "D:\\Program Files (x86)\\Microsoft Visual Studio2022\\Common7\\IDE\\CommonExtensions\\Microsoft\\CMake\\CMake\\bin\\cmake.exe" -E vs_link_exe --intdir=CMakeFiles\\cmTC_c1c32.dir --rc=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100226~1.0\\x64\\rc.exe --mt=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100226~1.0\\x64\\mt.exe --manifests  -- D:\\PROGRA~1\\MICROS~1\\VC\\Tools\\MSVC\\1441~1.341\\bin\\Hostx64\\x64\\link.exe /nologo CMakeFiles\\cmTC_c1c32.dir\\CMakeCCompilerABI.c.obj  /out:cmTC_c1c32.exe /implib:cmTC_c1c32.lib /pdb:cmTC_c1c32.pdb /version:0.0 /machine:x64  /debug /INCREMENTAL /subsystem:console  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib && cd ."
+        
+      exitCode: 0
+  -
+    kind: "message-v1"
+    backtrace:
+      - "D:/Program Files (x86)/Microsoft Visual Studio2022/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.29/Modules/CMakeDetermineCompilerABI.cmake:173 (message)"
+      - "D:/Program Files (x86)/Microsoft Visual Studio2022/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.29/Modules/CMakeTestCCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:3 (project)"
+    message: |
+      Parsed C implicit link information:
+        link line regex: [^( *|.*[/\\])(ld[0-9]*(\\.[a-z]+)?|link\\.exe|lld-link(\\.exe)?|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\\]+-)?ld|collect2)[^/\\]*( |$)]
+        linker tool regex: [^[ 	]*(->|")?[ 	]*(([^"]*[/\\])?(ld[0-9]*(\\.[a-z]+)?|link\\.exe|lld-link(\\.exe)?))("|,| |$)]
+        linker tool for 'C': D:/PROGRA~1/MICROS~1/VC/Tools/MSVC/1441~1.341/bin/Hostx64/x64/link.exe
+        implicit libs: []
+        implicit objs: []
+        implicit dirs: []
+        implicit fwks: []
+      
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "D:/Program Files (x86)/Microsoft Visual Studio2022/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.29/Modules/Internal/CMakeDetermineLinkerId.cmake:40 (message)"
+      - "D:/Program Files (x86)/Microsoft Visual Studio2022/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.29/Modules/CMakeDetermineCompilerABI.cmake:210 (cmake_determine_linker_id)"
+      - "D:/Program Files (x86)/Microsoft Visual Studio2022/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.29/Modules/CMakeTestCCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:3 (project)"
+    message: |
+      Running the C compiler's linker: "D:/PROGRA~1/MICROS~1/VC/Tools/MSVC/1441~1.341/bin/Hostx64/x64/link.exe" "-v"
+      Microsoft (R) Incremental Linker Version 14.41.34123.0
+      Copyright (C) Microsoft Corporation.  All rights reserved.
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "D:/Program Files (x86)/Microsoft Visual Studio2022/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.29/Modules/CheckIncludeFiles.cmake:132 (try_compile)"
+      - "3rd/freeglut/CMakeLists.txt:376 (CHECK_INCLUDE_FILES)"
+    checks:
+      - "Looking for include file sys/types.h"
+    directories:
+      source: "D:/school_3/database/hw6-2024/hw6/hw6-Option B/out/build/x64-Debug/CMakeFiles/CMakeScratch/TryCompile-uj7q1o"
+      binary: "D:/school_3/database/hw6-2024/hw6/hw6-Option B/out/build/x64-Debug/CMakeFiles/CMakeScratch/TryCompile-uj7q1o"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS"
+    buildResult:
+      variable: "HAVE_SYS_TYPES_H"
+      cached: true
+      stdout: |
+        Change Dir: 'D:/school_3/database/hw6-2024/hw6/hw6-Option B/out/build/x64-Debug/CMakeFiles/CMakeScratch/TryCompile-uj7q1o'
+        
+        Run Build Command(s): "D:/Program Files (x86)/Microsoft Visual Studio2022/Common7/IDE/CommonExtensions/Microsoft/CMake/Ninja/ninja.exe" -v cmTC_e2a81
+        [1/2] D:\\PROGRA~1\\MICROS~1\\VC\\Tools\\MSVC\\1441~1.341\\bin\\Hostx64\\x64\\cl.exe  /nologo   /DWIN32 /D_WINDOWS  /Zi /Ob0 /Od /RTC1 -MDd /showIncludes /FoCMakeFiles\\cmTC_e2a81.dir\\HAVE_SYS_TYPES_H.c.obj /FdCMakeFiles\\cmTC_e2a81.dir\\ /FS -c "D:\\school_3\\database\\hw6-2024\\hw6\\hw6-Option B\\out\\build\\x64-Debug\\CMakeFiles\\CMakeScratch\\TryCompile-uj7q1o\\HAVE_SYS_TYPES_H.c"
+        [2/2] C:\\WINDOWS\\system32\\cmd.exe /C "cd . && "D:\\Program Files (x86)\\Microsoft Visual Studio2022\\Common7\\IDE\\CommonExtensions\\Microsoft\\CMake\\CMake\\bin\\cmake.exe" -E vs_link_exe --intdir=CMakeFiles\\cmTC_e2a81.dir --rc=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100226~1.0\\x64\\rc.exe --mt=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100226~1.0\\x64\\mt.exe --manifests  -- D:\\PROGRA~1\\MICROS~1\\VC\\Tools\\MSVC\\1441~1.341\\bin\\Hostx64\\x64\\link.exe /nologo CMakeFiles\\cmTC_e2a81.dir\\HAVE_SYS_TYPES_H.c.obj  /out:cmTC_e2a81.exe /implib:cmTC_e2a81.lib /pdb:cmTC_e2a81.pdb /version:0.0 /machine:x64  /debug /INCREMENTAL /subsystem:console  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib && cd ."
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "D:/Program Files (x86)/Microsoft Visual Studio2022/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.29/Modules/CheckIncludeFiles.cmake:132 (try_compile)"
+      - "3rd/freeglut/CMakeLists.txt:377 (CHECK_INCLUDE_FILES)"
+    checks:
+      - "Looking for include file unistd.h"
+    directories:
+      source: "D:/school_3/database/hw6-2024/hw6/hw6-Option B/out/build/x64-Debug/CMakeFiles/CMakeScratch/TryCompile-mjy5gl"
+      binary: "D:/school_3/database/hw6-2024/hw6/hw6-Option B/out/build/x64-Debug/CMakeFiles/CMakeScratch/TryCompile-mjy5gl"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS"
+    buildResult:
+      variable: "HAVE_UNISTD_H"
+      cached: true
+      stdout: |
+        Change Dir: 'D:/school_3/database/hw6-2024/hw6/hw6-Option B/out/build/x64-Debug/CMakeFiles/CMakeScratch/TryCompile-mjy5gl'
+        
+        Run Build Command(s): "D:/Program Files (x86)/Microsoft Visual Studio2022/Common7/IDE/CommonExtensions/Microsoft/CMake/Ninja/ninja.exe" -v cmTC_e4337
+        [1/2] D:\\PROGRA~1\\MICROS~1\\VC\\Tools\\MSVC\\1441~1.341\\bin\\Hostx64\\x64\\cl.exe  /nologo   /DWIN32 /D_WINDOWS  /Zi /Ob0 /Od /RTC1 -MDd /showIncludes /FoCMakeFiles\\cmTC_e4337.dir\\HAVE_UNISTD_H.c.obj /FdCMakeFiles\\cmTC_e4337.dir\\ /FS -c "D:\\school_3\\database\\hw6-2024\\hw6\\hw6-Option B\\out\\build\\x64-Debug\\CMakeFiles\\CMakeScratch\\TryCompile-mjy5gl\\HAVE_UNISTD_H.c"
+        FAILED: CMakeFiles/cmTC_e4337.dir/HAVE_UNISTD_H.c.obj 
+        D:\\PROGRA~1\\MICROS~1\\VC\\Tools\\MSVC\\1441~1.341\\bin\\Hostx64\\x64\\cl.exe  /nologo   /DWIN32 /D_WINDOWS  /Zi /Ob0 /Od /RTC1 -MDd /showIncludes /FoCMakeFiles\\cmTC_e4337.dir\\HAVE_UNISTD_H.c.obj /FdCMakeFiles\\cmTC_e4337.dir\\ /FS -c "D:\\school_3\\database\\hw6-2024\\hw6\\hw6-Option B\\out\\build\\x64-Debug\\CMakeFiles\\CMakeScratch\\TryCompile-mjy5gl\\HAVE_UNISTD_H.c"
+        D:\\school_3\\database\\hw6-2024\\hw6\\hw6-Option B\\out\\build\\x64-Debug\\CMakeFiles\\CMakeScratch\\TryCompile-mjy5gl\\HAVE_UNISTD_H.c(2): fatal error C1083: 无法打开包括文件: “unistd.h”: No such file or directory
+        ninja: build stopped: subcommand failed.
+        
+      exitCode: 1
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "D:/Program Files (x86)/Microsoft Visual Studio2022/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.29/Modules/CheckIncludeFiles.cmake:132 (try_compile)"
+      - "3rd/freeglut/CMakeLists.txt:378 (CHECK_INCLUDE_FILES)"
+    checks:
+      - "Looking for include file sys/time.h"
+    directories:
+      source: "D:/school_3/database/hw6-2024/hw6/hw6-Option B/out/build/x64-Debug/CMakeFiles/CMakeScratch/TryCompile-mvgm6l"
+      binary: "D:/school_3/database/hw6-2024/hw6/hw6-Option B/out/build/x64-Debug/CMakeFiles/CMakeScratch/TryCompile-mvgm6l"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS"
+    buildResult:
+      variable: "HAVE_SYS_TIME_H"
+      cached: true
+      stdout: |
+        Change Dir: 'D:/school_3/database/hw6-2024/hw6/hw6-Option B/out/build/x64-Debug/CMakeFiles/CMakeScratch/TryCompile-mvgm6l'
+        
+        Run Build Command(s): "D:/Program Files (x86)/Microsoft Visual Studio2022/Common7/IDE/CommonExtensions/Microsoft/CMake/Ninja/ninja.exe" -v cmTC_d7d54
+        [1/2] D:\\PROGRA~1\\MICROS~1\\VC\\Tools\\MSVC\\1441~1.341\\bin\\Hostx64\\x64\\cl.exe  /nologo   /DWIN32 /D_WINDOWS  /Zi /Ob0 /Od /RTC1 -MDd /showIncludes /FoCMakeFiles\\cmTC_d7d54.dir\\HAVE_SYS_TIME_H.c.obj /FdCMakeFiles\\cmTC_d7d54.dir\\ /FS -c "D:\\school_3\\database\\hw6-2024\\hw6\\hw6-Option B\\out\\build\\x64-Debug\\CMakeFiles\\CMakeScratch\\TryCompile-mvgm6l\\HAVE_SYS_TIME_H.c"
+        FAILED: CMakeFiles/cmTC_d7d54.dir/HAVE_SYS_TIME_H.c.obj 
+        D:\\PROGRA~1\\MICROS~1\\VC\\Tools\\MSVC\\1441~1.341\\bin\\Hostx64\\x64\\cl.exe  /nologo   /DWIN32 /D_WINDOWS  /Zi /Ob0 /Od /RTC1 -MDd /showIncludes /FoCMakeFiles\\cmTC_d7d54.dir\\HAVE_SYS_TIME_H.c.obj /FdCMakeFiles\\cmTC_d7d54.dir\\ /FS -c "D:\\school_3\\database\\hw6-2024\\hw6\\hw6-Option B\\out\\build\\x64-Debug\\CMakeFiles\\CMakeScratch\\TryCompile-mvgm6l\\HAVE_SYS_TIME_H.c"
+        D:\\school_3\\database\\hw6-2024\\hw6\\hw6-Option B\\out\\build\\x64-Debug\\CMakeFiles\\CMakeScratch\\TryCompile-mvgm6l\\HAVE_SYS_TIME_H.c(2): fatal error C1083: 无法打开包括文件: “sys/time.h”: No such file or directory
+        ninja: build stopped: subcommand failed.
+        
+      exitCode: 1
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "D:/Program Files (x86)/Microsoft Visual Studio2022/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.29/Modules/CheckIncludeFiles.cmake:132 (try_compile)"
+      - "3rd/freeglut/CMakeLists.txt:379 (CHECK_INCLUDE_FILES)"
+    checks:
+      - "Looking for include file stdbool.h"
+    directories:
+      source: "D:/school_3/database/hw6-2024/hw6/hw6-Option B/out/build/x64-Debug/CMakeFiles/CMakeScratch/TryCompile-i1hy9w"
+      binary: "D:/school_3/database/hw6-2024/hw6/hw6-Option B/out/build/x64-Debug/CMakeFiles/CMakeScratch/TryCompile-i1hy9w"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS"
+    buildResult:
+      variable: "HAVE_STDBOOL_H"
+      cached: true
+      stdout: |
+        Change Dir: 'D:/school_3/database/hw6-2024/hw6/hw6-Option B/out/build/x64-Debug/CMakeFiles/CMakeScratch/TryCompile-i1hy9w'
+        
+        Run Build Command(s): "D:/Program Files (x86)/Microsoft Visual Studio2022/Common7/IDE/CommonExtensions/Microsoft/CMake/Ninja/ninja.exe" -v cmTC_dd27b
+        [1/2] D:\\PROGRA~1\\MICROS~1\\VC\\Tools\\MSVC\\1441~1.341\\bin\\Hostx64\\x64\\cl.exe  /nologo   /DWIN32 /D_WINDOWS  /Zi /Ob0 /Od /RTC1 -MDd /showIncludes /FoCMakeFiles\\cmTC_dd27b.dir\\HAVE_STDBOOL_H.c.obj /FdCMakeFiles\\cmTC_dd27b.dir\\ /FS -c "D:\\school_3\\database\\hw6-2024\\hw6\\hw6-Option B\\out\\build\\x64-Debug\\CMakeFiles\\CMakeScratch\\TryCompile-i1hy9w\\HAVE_STDBOOL_H.c"
+        [2/2] C:\\WINDOWS\\system32\\cmd.exe /C "cd . && "D:\\Program Files (x86)\\Microsoft Visual Studio2022\\Common7\\IDE\\CommonExtensions\\Microsoft\\CMake\\CMake\\bin\\cmake.exe" -E vs_link_exe --intdir=CMakeFiles\\cmTC_dd27b.dir --rc=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100226~1.0\\x64\\rc.exe --mt=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100226~1.0\\x64\\mt.exe --manifests  -- D:\\PROGRA~1\\MICROS~1\\VC\\Tools\\MSVC\\1441~1.341\\bin\\Hostx64\\x64\\link.exe /nologo CMakeFiles\\cmTC_dd27b.dir\\HAVE_STDBOOL_H.c.obj  /out:cmTC_dd27b.exe /implib:cmTC_dd27b.lib /pdb:cmTC_dd27b.pdb /version:0.0 /machine:x64  /debug /INCREMENTAL /subsystem:console  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib && cd ."
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "D:/Program Files (x86)/Microsoft Visual Studio2022/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.29/Modules/CheckIncludeFiles.cmake:132 (try_compile)"
+      - "3rd/freeglut/CMakeLists.txt:380 (CHECK_INCLUDE_FILES)"
+    checks:
+      - "Looking for include file sys/param.h"
+    directories:
+      source: "D:/school_3/database/hw6-2024/hw6/hw6-Option B/out/build/x64-Debug/CMakeFiles/CMakeScratch/TryCompile-94hh8a"
+      binary: "D:/school_3/database/hw6-2024/hw6/hw6-Option B/out/build/x64-Debug/CMakeFiles/CMakeScratch/TryCompile-94hh8a"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS"
+    buildResult:
+      variable: "HAVE_SYS_PARAM_H"
+      cached: true
+      stdout: |
+        Change Dir: 'D:/school_3/database/hw6-2024/hw6/hw6-Option B/out/build/x64-Debug/CMakeFiles/CMakeScratch/TryCompile-94hh8a'
+        
+        Run Build Command(s): "D:/Program Files (x86)/Microsoft Visual Studio2022/Common7/IDE/CommonExtensions/Microsoft/CMake/Ninja/ninja.exe" -v cmTC_d4d32
+        [1/2] D:\\PROGRA~1\\MICROS~1\\VC\\Tools\\MSVC\\1441~1.341\\bin\\Hostx64\\x64\\cl.exe  /nologo   /DWIN32 /D_WINDOWS  /Zi /Ob0 /Od /RTC1 -MDd /showIncludes /FoCMakeFiles\\cmTC_d4d32.dir\\HAVE_SYS_PARAM_H.c.obj /FdCMakeFiles\\cmTC_d4d32.dir\\ /FS -c "D:\\school_3\\database\\hw6-2024\\hw6\\hw6-Option B\\out\\build\\x64-Debug\\CMakeFiles\\CMakeScratch\\TryCompile-94hh8a\\HAVE_SYS_PARAM_H.c"
+        FAILED: CMakeFiles/cmTC_d4d32.dir/HAVE_SYS_PARAM_H.c.obj 
+        D:\\PROGRA~1\\MICROS~1\\VC\\Tools\\MSVC\\1441~1.341\\bin\\Hostx64\\x64\\cl.exe  /nologo   /DWIN32 /D_WINDOWS  /Zi /Ob0 /Od /RTC1 -MDd /showIncludes /FoCMakeFiles\\cmTC_d4d32.dir\\HAVE_SYS_PARAM_H.c.obj /FdCMakeFiles\\cmTC_d4d32.dir\\ /FS -c "D:\\school_3\\database\\hw6-2024\\hw6\\hw6-Option B\\out\\build\\x64-Debug\\CMakeFiles\\CMakeScratch\\TryCompile-94hh8a\\HAVE_SYS_PARAM_H.c"
+        D:\\school_3\\database\\hw6-2024\\hw6\\hw6-Option B\\out\\build\\x64-Debug\\CMakeFiles\\CMakeScratch\\TryCompile-94hh8a\\HAVE_SYS_PARAM_H.c(2): fatal error C1083: 无法打开包括文件: “sys/param.h”: No such file or directory
+        ninja: build stopped: subcommand failed.
+        
+      exitCode: 1
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "D:/Program Files (x86)/Microsoft Visual Studio2022/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.29/Modules/CheckIncludeFiles.cmake:132 (try_compile)"
+      - "3rd/freeglut/CMakeLists.txt:381 (CHECK_INCLUDE_FILES)"
+    checks:
+      - "Looking for include file sys/ioctl.h"
+    directories:
+      source: "D:/school_3/database/hw6-2024/hw6/hw6-Option B/out/build/x64-Debug/CMakeFiles/CMakeScratch/TryCompile-zd0jqw"
+      binary: "D:/school_3/database/hw6-2024/hw6/hw6-Option B/out/build/x64-Debug/CMakeFiles/CMakeScratch/TryCompile-zd0jqw"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS"
+    buildResult:
+      variable: "HAVE_SYS_IOCTL_H"
+      cached: true
+      stdout: |
+        Change Dir: 'D:/school_3/database/hw6-2024/hw6/hw6-Option B/out/build/x64-Debug/CMakeFiles/CMakeScratch/TryCompile-zd0jqw'
+        
+        Run Build Command(s): "D:/Program Files (x86)/Microsoft Visual Studio2022/Common7/IDE/CommonExtensions/Microsoft/CMake/Ninja/ninja.exe" -v cmTC_8c914
+        [1/2] D:\\PROGRA~1\\MICROS~1\\VC\\Tools\\MSVC\\1441~1.341\\bin\\Hostx64\\x64\\cl.exe  /nologo   /DWIN32 /D_WINDOWS  /Zi /Ob0 /Od /RTC1 -MDd /showIncludes /FoCMakeFiles\\cmTC_8c914.dir\\HAVE_SYS_IOCTL_H.c.obj /FdCMakeFiles\\cmTC_8c914.dir\\ /FS -c "D:\\school_3\\database\\hw6-2024\\hw6\\hw6-Option B\\out\\build\\x64-Debug\\CMakeFiles\\CMakeScratch\\TryCompile-zd0jqw\\HAVE_SYS_IOCTL_H.c"
+        FAILED: CMakeFiles/cmTC_8c914.dir/HAVE_SYS_IOCTL_H.c.obj 
+        D:\\PROGRA~1\\MICROS~1\\VC\\Tools\\MSVC\\1441~1.341\\bin\\Hostx64\\x64\\cl.exe  /nologo   /DWIN32 /D_WINDOWS  /Zi /Ob0 /Od /RTC1 -MDd /showIncludes /FoCMakeFiles\\cmTC_8c914.dir\\HAVE_SYS_IOCTL_H.c.obj /FdCMakeFiles\\cmTC_8c914.dir\\ /FS -c "D:\\school_3\\database\\hw6-2024\\hw6\\hw6-Option B\\out\\build\\x64-Debug\\CMakeFiles\\CMakeScratch\\TryCompile-zd0jqw\\HAVE_SYS_IOCTL_H.c"
+        D:\\school_3\\database\\hw6-2024\\hw6\\hw6-Option B\\out\\build\\x64-Debug\\CMakeFiles\\CMakeScratch\\TryCompile-zd0jqw\\HAVE_SYS_IOCTL_H.c(2): fatal error C1083: 无法打开包括文件: “sys/ioctl.h”: No such file or directory
+        ninja: build stopped: subcommand failed.
+        
+      exitCode: 1
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "D:/Program Files (x86)/Microsoft Visual Studio2022/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.29/Modules/CheckIncludeFiles.cmake:132 (try_compile)"
+      - "3rd/freeglut/CMakeLists.txt:382 (CHECK_INCLUDE_FILES)"
+    checks:
+      - "Looking for include file fcntl.h"
+    directories:
+      source: "D:/school_3/database/hw6-2024/hw6/hw6-Option B/out/build/x64-Debug/CMakeFiles/CMakeScratch/TryCompile-o40pyc"
+      binary: "D:/school_3/database/hw6-2024/hw6/hw6-Option B/out/build/x64-Debug/CMakeFiles/CMakeScratch/TryCompile-o40pyc"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS"
+    buildResult:
+      variable: "HAVE_FCNTL_H"
+      cached: true
+      stdout: |
+        Change Dir: 'D:/school_3/database/hw6-2024/hw6/hw6-Option B/out/build/x64-Debug/CMakeFiles/CMakeScratch/TryCompile-o40pyc'
+        
+        Run Build Command(s): "D:/Program Files (x86)/Microsoft Visual Studio2022/Common7/IDE/CommonExtensions/Microsoft/CMake/Ninja/ninja.exe" -v cmTC_3f7b7
+        [1/2] D:\\PROGRA~1\\MICROS~1\\VC\\Tools\\MSVC\\1441~1.341\\bin\\Hostx64\\x64\\cl.exe  /nologo   /DWIN32 /D_WINDOWS  /Zi /Ob0 /Od /RTC1 -MDd /showIncludes /FoCMakeFiles\\cmTC_3f7b7.dir\\HAVE_FCNTL_H.c.obj /FdCMakeFiles\\cmTC_3f7b7.dir\\ /FS -c "D:\\school_3\\database\\hw6-2024\\hw6\\hw6-Option B\\out\\build\\x64-Debug\\CMakeFiles\\CMakeScratch\\TryCompile-o40pyc\\HAVE_FCNTL_H.c"
+        [2/2] C:\\WINDOWS\\system32\\cmd.exe /C "cd . && "D:\\Program Files (x86)\\Microsoft Visual Studio2022\\Common7\\IDE\\CommonExtensions\\Microsoft\\CMake\\CMake\\bin\\cmake.exe" -E vs_link_exe --intdir=CMakeFiles\\cmTC_3f7b7.dir --rc=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100226~1.0\\x64\\rc.exe --mt=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100226~1.0\\x64\\mt.exe --manifests  -- D:\\PROGRA~1\\MICROS~1\\VC\\Tools\\MSVC\\1441~1.341\\bin\\Hostx64\\x64\\link.exe /nologo CMakeFiles\\cmTC_3f7b7.dir\\HAVE_FCNTL_H.c.obj  /out:cmTC_3f7b7.exe /implib:cmTC_3f7b7.lib /pdb:cmTC_3f7b7.pdb /version:0.0 /machine:x64  /debug /INCREMENTAL /subsystem:console  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib && cd ."
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "D:/Program Files (x86)/Microsoft Visual Studio2022/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.29/Modules/CheckIncludeFiles.cmake:132 (try_compile)"
+      - "3rd/freeglut/CMakeLists.txt:383 (CHECK_INCLUDE_FILES)"
+    checks:
+      - "Looking for include file usbhid.h"
+    directories:
+      source: "D:/school_3/database/hw6-2024/hw6/hw6-Option B/out/build/x64-Debug/CMakeFiles/CMakeScratch/TryCompile-7fr6g5"
+      binary: "D:/school_3/database/hw6-2024/hw6/hw6-Option B/out/build/x64-Debug/CMakeFiles/CMakeScratch/TryCompile-7fr6g5"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS"
+    buildResult:
+      variable: "HAVE_USBHID_H"
+      cached: true
+      stdout: |
+        Change Dir: 'D:/school_3/database/hw6-2024/hw6/hw6-Option B/out/build/x64-Debug/CMakeFiles/CMakeScratch/TryCompile-7fr6g5'
+        
+        Run Build Command(s): "D:/Program Files (x86)/Microsoft Visual Studio2022/Common7/IDE/CommonExtensions/Microsoft/CMake/Ninja/ninja.exe" -v cmTC_05608
+        [1/2] D:\\PROGRA~1\\MICROS~1\\VC\\Tools\\MSVC\\1441~1.341\\bin\\Hostx64\\x64\\cl.exe  /nologo   /DWIN32 /D_WINDOWS  /Zi /Ob0 /Od /RTC1 -MDd /showIncludes /FoCMakeFiles\\cmTC_05608.dir\\HAVE_USBHID_H.c.obj /FdCMakeFiles\\cmTC_05608.dir\\ /FS -c "D:\\school_3\\database\\hw6-2024\\hw6\\hw6-Option B\\out\\build\\x64-Debug\\CMakeFiles\\CMakeScratch\\TryCompile-7fr6g5\\HAVE_USBHID_H.c"
+        FAILED: CMakeFiles/cmTC_05608.dir/HAVE_USBHID_H.c.obj 
+        D:\\PROGRA~1\\MICROS~1\\VC\\Tools\\MSVC\\1441~1.341\\bin\\Hostx64\\x64\\cl.exe  /nologo   /DWIN32 /D_WINDOWS  /Zi /Ob0 /Od /RTC1 -MDd /showIncludes /FoCMakeFiles\\cmTC_05608.dir\\HAVE_USBHID_H.c.obj /FdCMakeFiles\\cmTC_05608.dir\\ /FS -c "D:\\school_3\\database\\hw6-2024\\hw6\\hw6-Option B\\out\\build\\x64-Debug\\CMakeFiles\\CMakeScratch\\TryCompile-7fr6g5\\HAVE_USBHID_H.c"
+        D:\\school_3\\database\\hw6-2024\\hw6\\hw6-Option B\\out\\build\\x64-Debug\\CMakeFiles\\CMakeScratch\\TryCompile-7fr6g5\\HAVE_USBHID_H.c(2): fatal error C1083: 无法打开包括文件: “usbhid.h”: No such file or directory
+        ninja: build stopped: subcommand failed.
+        
+      exitCode: 1
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "D:/Program Files (x86)/Microsoft Visual Studio2022/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.29/Modules/CheckFunctionExists.cmake:86 (try_compile)"
+      - "3rd/freeglut/CMakeLists.txt:384 (CHECK_FUNCTION_EXISTS)"
+    checks:
+      - "Looking for gettimeofday"
+    directories:
+      source: "D:/school_3/database/hw6-2024/hw6/hw6-Option B/out/build/x64-Debug/CMakeFiles/CMakeScratch/TryCompile-h74gjt"
+      binary: "D:/school_3/database/hw6-2024/hw6/hw6-Option B/out/build/x64-Debug/CMakeFiles/CMakeScratch/TryCompile-h74gjt"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS"
+    buildResult:
+      variable: "HAVE_GETTIMEOFDAY"
+      cached: true
+      stdout: |
+        Change Dir: 'D:/school_3/database/hw6-2024/hw6/hw6-Option B/out/build/x64-Debug/CMakeFiles/CMakeScratch/TryCompile-h74gjt'
+        
+        Run Build Command(s): "D:/Program Files (x86)/Microsoft Visual Studio2022/Common7/IDE/CommonExtensions/Microsoft/CMake/Ninja/ninja.exe" -v cmTC_4995b
+        [1/2] D:\\PROGRA~1\\MICROS~1\\VC\\Tools\\MSVC\\1441~1.341\\bin\\Hostx64\\x64\\cl.exe  /nologo   /DWIN32 /D_WINDOWS -DCHECK_FUNCTION_EXISTS=gettimeofday /Zi /Ob0 /Od /RTC1 -MDd /showIncludes /FoCMakeFiles\\cmTC_4995b.dir\\CheckFunctionExists.c.obj /FdCMakeFiles\\cmTC_4995b.dir\\ /FS -c "D:\\school_3\\database\\hw6-2024\\hw6\\hw6-Option B\\out\\build\\x64-Debug\\CMakeFiles\\CMakeScratch\\TryCompile-h74gjt\\CheckFunctionExists.c"
+        [2/2] C:\\WINDOWS\\system32\\cmd.exe /C "cd . && "D:\\Program Files (x86)\\Microsoft Visual Studio2022\\Common7\\IDE\\CommonExtensions\\Microsoft\\CMake\\CMake\\bin\\cmake.exe" -E vs_link_exe --intdir=CMakeFiles\\cmTC_4995b.dir --rc=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100226~1.0\\x64\\rc.exe --mt=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100226~1.0\\x64\\mt.exe --manifests  -- D:\\PROGRA~1\\MICROS~1\\VC\\Tools\\MSVC\\1441~1.341\\bin\\Hostx64\\x64\\link.exe /nologo CMakeFiles\\cmTC_4995b.dir\\CheckFunctionExists.c.obj  /out:cmTC_4995b.exe /implib:cmTC_4995b.lib /pdb:cmTC_4995b.pdb /version:0.0 /machine:x64  /debug /INCREMENTAL /subsystem:console  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib && cd ."
+        FAILED: cmTC_4995b.exe 
+        C:\\WINDOWS\\system32\\cmd.exe /C "cd . && "D:\\Program Files (x86)\\Microsoft Visual Studio2022\\Common7\\IDE\\CommonExtensions\\Microsoft\\CMake\\CMake\\bin\\cmake.exe" -E vs_link_exe --intdir=CMakeFiles\\cmTC_4995b.dir --rc=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100226~1.0\\x64\\rc.exe --mt=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100226~1.0\\x64\\mt.exe --manifests  -- D:\\PROGRA~1\\MICROS~1\\VC\\Tools\\MSVC\\1441~1.341\\bin\\Hostx64\\x64\\link.exe /nologo CMakeFiles\\cmTC_4995b.dir\\CheckFunctionExists.c.obj  /out:cmTC_4995b.exe /implib:cmTC_4995b.lib /pdb:cmTC_4995b.pdb /version:0.0 /machine:x64  /debug /INCREMENTAL /subsystem:console  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib && cd ."
+        LINK Pass 1: command "D:\\PROGRA~1\\MICROS~1\\VC\\Tools\\MSVC\\1441~1.341\\bin\\Hostx64\\x64\\link.exe /nologo CMakeFiles\\cmTC_4995b.dir\\CheckFunctionExists.c.obj /out:cmTC_4995b.exe /implib:cmTC_4995b.lib /pdb:cmTC_4995b.pdb /version:0.0 /machine:x64 /debug /INCREMENTAL /subsystem:console kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTFILE:CMakeFiles\\cmTC_4995b.dir/intermediate.manifest CMakeFiles\\cmTC_4995b.dir/manifest.res" failed (exit code 1120) with the following output:
+        CheckFunctionExists.c.obj : error LNK2019: 无法解析的外部符号 gettimeofday，函数 main 中引用了该符号\x0d
+        cmTC_4995b.exe : fatal error LNK1120: 1 个无法解析的外部命令\x0d
+        ninja: build stopped: subcommand failed.
+        
+      exitCode: 1
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "D:/Program Files (x86)/Microsoft Visual Studio2022/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.29/Modules/CheckFunctionExists.cmake:86 (try_compile)"
+      - "3rd/freeglut/CMakeLists.txt:385 (CHECK_FUNCTION_EXISTS)"
+    checks:
+      - "Looking for XParseGeometry"
+    directories:
+      source: "D:/school_3/database/hw6-2024/hw6/hw6-Option B/out/build/x64-Debug/CMakeFiles/CMakeScratch/TryCompile-5aslw5"
+      binary: "D:/school_3/database/hw6-2024/hw6/hw6-Option B/out/build/x64-Debug/CMakeFiles/CMakeScratch/TryCompile-5aslw5"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS"
+    buildResult:
+      variable: "HAVE_XPARSEGEOMETRY"
+      cached: true
+      stdout: |
+        Change Dir: 'D:/school_3/database/hw6-2024/hw6/hw6-Option B/out/build/x64-Debug/CMakeFiles/CMakeScratch/TryCompile-5aslw5'
+        
+        Run Build Command(s): "D:/Program Files (x86)/Microsoft Visual Studio2022/Common7/IDE/CommonExtensions/Microsoft/CMake/Ninja/ninja.exe" -v cmTC_a20d7
+        [1/2] D:\\PROGRA~1\\MICROS~1\\VC\\Tools\\MSVC\\1441~1.341\\bin\\Hostx64\\x64\\cl.exe  /nologo   /DWIN32 /D_WINDOWS -DCHECK_FUNCTION_EXISTS=XParseGeometry /Zi /Ob0 /Od /RTC1 -MDd /showIncludes /FoCMakeFiles\\cmTC_a20d7.dir\\CheckFunctionExists.c.obj /FdCMakeFiles\\cmTC_a20d7.dir\\ /FS -c "D:\\school_3\\database\\hw6-2024\\hw6\\hw6-Option B\\out\\build\\x64-Debug\\CMakeFiles\\CMakeScratch\\TryCompile-5aslw5\\CheckFunctionExists.c"
+        [2/2] C:\\WINDOWS\\system32\\cmd.exe /C "cd . && "D:\\Program Files (x86)\\Microsoft Visual Studio2022\\Common7\\IDE\\CommonExtensions\\Microsoft\\CMake\\CMake\\bin\\cmake.exe" -E vs_link_exe --intdir=CMakeFiles\\cmTC_a20d7.dir --rc=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100226~1.0\\x64\\rc.exe --mt=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100226~1.0\\x64\\mt.exe --manifests  -- D:\\PROGRA~1\\MICROS~1\\VC\\Tools\\MSVC\\1441~1.341\\bin\\Hostx64\\x64\\link.exe /nologo CMakeFiles\\cmTC_a20d7.dir\\CheckFunctionExists.c.obj  /out:cmTC_a20d7.exe /implib:cmTC_a20d7.lib /pdb:cmTC_a20d7.pdb /version:0.0 /machine:x64  /debug /INCREMENTAL /subsystem:console  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib && cd ."
+        FAILED: cmTC_a20d7.exe 
+        C:\\WINDOWS\\system32\\cmd.exe /C "cd . && "D:\\Program Files (x86)\\Microsoft Visual Studio2022\\Common7\\IDE\\CommonExtensions\\Microsoft\\CMake\\CMake\\bin\\cmake.exe" -E vs_link_exe --intdir=CMakeFiles\\cmTC_a20d7.dir --rc=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100226~1.0\\x64\\rc.exe --mt=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100226~1.0\\x64\\mt.exe --manifests  -- D:\\PROGRA~1\\MICROS~1\\VC\\Tools\\MSVC\\1441~1.341\\bin\\Hostx64\\x64\\link.exe /nologo CMakeFiles\\cmTC_a20d7.dir\\CheckFunctionExists.c.obj  /out:cmTC_a20d7.exe /implib:cmTC_a20d7.lib /pdb:cmTC_a20d7.pdb /version:0.0 /machine:x64  /debug /INCREMENTAL /subsystem:console  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib && cd ."
+        LINK Pass 1: command "D:\\PROGRA~1\\MICROS~1\\VC\\Tools\\MSVC\\1441~1.341\\bin\\Hostx64\\x64\\link.exe /nologo CMakeFiles\\cmTC_a20d7.dir\\CheckFunctionExists.c.obj /out:cmTC_a20d7.exe /implib:cmTC_a20d7.lib /pdb:cmTC_a20d7.pdb /version:0.0 /machine:x64 /debug /INCREMENTAL /subsystem:console kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTFILE:CMakeFiles\\cmTC_a20d7.dir/intermediate.manifest CMakeFiles\\cmTC_a20d7.dir/manifest.res" failed (exit code 1120) with the following output:
+        CheckFunctionExists.c.obj : error LNK2019: 无法解析的外部符号 XParseGeometry，函数 main 中引用了该符号\x0d
+        cmTC_a20d7.exe : fatal error LNK1120: 1 个无法解析的外部命令\x0d
+        ninja: build stopped: subcommand failed.
+        
+      exitCode: 1
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "D:/Program Files (x86)/Microsoft Visual Studio2022/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.29/Modules/CheckIncludeFiles.cmake:132 (try_compile)"
+      - "3rd/freeglut/CMakeLists.txt:393 (CHECK_INCLUDE_FILES)"
+    checks:
+      - "Looking for include file stdint.h"
+    directories:
+      source: "D:/school_3/database/hw6-2024/hw6/hw6-Option B/out/build/x64-Debug/CMakeFiles/CMakeScratch/TryCompile-b7o4d0"
+      binary: "D:/school_3/database/hw6-2024/hw6/hw6-Option B/out/build/x64-Debug/CMakeFiles/CMakeScratch/TryCompile-b7o4d0"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS"
+    buildResult:
+      variable: "HAVE_STDINT_H"
+      cached: true
+      stdout: |
+        Change Dir: 'D:/school_3/database/hw6-2024/hw6/hw6-Option B/out/build/x64-Debug/CMakeFiles/CMakeScratch/TryCompile-b7o4d0'
+        
+        Run Build Command(s): "D:/Program Files (x86)/Microsoft Visual Studio2022/Common7/IDE/CommonExtensions/Microsoft/CMake/Ninja/ninja.exe" -v cmTC_915eb
+        [1/2] D:\\PROGRA~1\\MICROS~1\\VC\\Tools\\MSVC\\1441~1.341\\bin\\Hostx64\\x64\\cl.exe  /nologo   /DWIN32 /D_WINDOWS  /Zi /Ob0 /Od /RTC1 -MDd /showIncludes /FoCMakeFiles\\cmTC_915eb.dir\\HAVE_STDINT_H.c.obj /FdCMakeFiles\\cmTC_915eb.dir\\ /FS -c "D:\\school_3\\database\\hw6-2024\\hw6\\hw6-Option B\\out\\build\\x64-Debug\\CMakeFiles\\CMakeScratch\\TryCompile-b7o4d0\\HAVE_STDINT_H.c"
+        [2/2] C:\\WINDOWS\\system32\\cmd.exe /C "cd . && "D:\\Program Files (x86)\\Microsoft Visual Studio2022\\Common7\\IDE\\CommonExtensions\\Microsoft\\CMake\\CMake\\bin\\cmake.exe" -E vs_link_exe --intdir=CMakeFiles\\cmTC_915eb.dir --rc=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100226~1.0\\x64\\rc.exe --mt=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100226~1.0\\x64\\mt.exe --manifests  -- D:\\PROGRA~1\\MICROS~1\\VC\\Tools\\MSVC\\1441~1.341\\bin\\Hostx64\\x64\\link.exe /nologo CMakeFiles\\cmTC_915eb.dir\\HAVE_STDINT_H.c.obj  /out:cmTC_915eb.exe /implib:cmTC_915eb.lib /pdb:cmTC_915eb.pdb /version:0.0 /machine:x64  /debug /INCREMENTAL /subsystem:console  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib && cd ."
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "D:/Program Files (x86)/Microsoft Visual Studio2022/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.29/Modules/CheckIncludeFiles.cmake:132 (try_compile)"
+      - "3rd/freeglut/CMakeLists.txt:394 (CHECK_INCLUDE_FILES)"
+    checks:
+      - "Looking for include file inttypes.h"
+    directories:
+      source: "D:/school_3/database/hw6-2024/hw6/hw6-Option B/out/build/x64-Debug/CMakeFiles/CMakeScratch/TryCompile-f87kls"
+      binary: "D:/school_3/database/hw6-2024/hw6/hw6-Option B/out/build/x64-Debug/CMakeFiles/CMakeScratch/TryCompile-f87kls"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS"
+    buildResult:
+      variable: "HAVE_INTTYPES_H"
+      cached: true
+      stdout: |
+        Change Dir: 'D:/school_3/database/hw6-2024/hw6/hw6-Option B/out/build/x64-Debug/CMakeFiles/CMakeScratch/TryCompile-f87kls'
+        
+        Run Build Command(s): "D:/Program Files (x86)/Microsoft Visual Studio2022/Common7/IDE/CommonExtensions/Microsoft/CMake/Ninja/ninja.exe" -v cmTC_aedfd
+        [1/2] D:\\PROGRA~1\\MICROS~1\\VC\\Tools\\MSVC\\1441~1.341\\bin\\Hostx64\\x64\\cl.exe  /nologo   /DWIN32 /D_WINDOWS  /Zi /Ob0 /Od /RTC1 -MDd /showIncludes /FoCMakeFiles\\cmTC_aedfd.dir\\HAVE_INTTYPES_H.c.obj /FdCMakeFiles\\cmTC_aedfd.dir\\ /FS -c "D:\\school_3\\database\\hw6-2024\\hw6\\hw6-Option B\\out\\build\\x64-Debug\\CMakeFiles\\CMakeScratch\\TryCompile-f87kls\\HAVE_INTTYPES_H.c"
+        [2/2] C:\\WINDOWS\\system32\\cmd.exe /C "cd . && "D:\\Program Files (x86)\\Microsoft Visual Studio2022\\Common7\\IDE\\CommonExtensions\\Microsoft\\CMake\\CMake\\bin\\cmake.exe" -E vs_link_exe --intdir=CMakeFiles\\cmTC_aedfd.dir --rc=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100226~1.0\\x64\\rc.exe --mt=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100226~1.0\\x64\\mt.exe --manifests  -- D:\\PROGRA~1\\MICROS~1\\VC\\Tools\\MSVC\\1441~1.341\\bin\\Hostx64\\x64\\link.exe /nologo CMakeFiles\\cmTC_aedfd.dir\\HAVE_INTTYPES_H.c.obj  /out:cmTC_aedfd.exe /implib:cmTC_aedfd.lib /pdb:cmTC_aedfd.pdb /version:0.0 /machine:x64  /debug /INCREMENTAL /subsystem:console  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib && cd ."
+        
+      exitCode: 0
+...
