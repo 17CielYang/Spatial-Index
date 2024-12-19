@@ -31,8 +31,20 @@ namespace hw6 {
 		double getWidth() const { return maxX - minX; }
 		double getHeight() const { return maxY - minY; }
 		double getArea() const { return getWidth() * getHeight(); }
+		double minDistance(const Envelope& other) const;
+		double minDistance(double x, double y) const;
 
 		bool contain(double x, double y) const;
+
+		static Envelope createNull() {
+			// 使用无穷大来初始化一个空的 Envelope
+			return Envelope(
+				std::numeric_limits<double>::infinity(),  // minX
+				-std::numeric_limits<double>::infinity(), // maxX
+				std::numeric_limits<double>::infinity(),  // minY
+				-std::numeric_limits<double>::infinity()  // maxY
+			);
+		}
 
 		void draw() const;
 

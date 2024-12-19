@@ -56,6 +56,53 @@ namespace hw6 {
 		glEnd();
 	}
 
+	// 用于点与 Envelope 的最小距离
+	double Envelope::minDistance(double x, double y) const {
+		double dx = 0.0;
+		if (x < minX) dx = minX - x;
+		else if (x > maxX) dx = x - maxX;
+
+		double dy = 0.0;
+		if (y < minY) dy = minY - y;
+		else if (y > maxY) dy = y - maxY;
+
+		// 若点在envelope内部或在边缘上，则dx=0且dy=0，距离为0
+		// 否则取欧式距离
+		if (dx == 0.0 && dy == 0.0) return 0.0;
+		return std::sqrt(dx * dx + dy * dy);
+	}
+
+	double Envelope::minDistance(const Envelope& other) const {
+		// 如果相交或接触，距离为0
+		if (this->intersect(other)) {
+			return 0.0;
+		}
+
+		double dx = 0.0;
+		// 如果 other 完全在 this 的左侧
+		if (other.getMaxX() < this->getMinX()) {
+			dx = this->getMinX() - other.getMaxX();
+		}
+		// 如果 other 完全在 this 的右侧
+		else if (other.getMinX() > this->getMaxX()) {
+			dx = other.getMinX() - this->getMaxX();
+		}
+
+		double dy = 0.0;
+		// 如果 other 完全在 this 的下方
+		if (other.getMaxY() < this->getMinY()) {
+			dy = this->getMinY() - other.getMaxY();
+		}
+		// 如果 other 完全在 this 的上方
+		else if (other.getMinY() > this->getMaxY()) {
+			dy = other.getMinY() - this->getMaxY();
+		}
+
+		// 若在X或Y方向上没有间隔，则对应方向上的dx或dy为0
+		// 最终距离为欧式距离
+		return std::sqrt(dx * dx + dy * dy);
+	}
+
 	/*
 	 * Points functions
 	 */

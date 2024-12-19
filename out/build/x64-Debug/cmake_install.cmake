@@ -1,8 +1,8 @@
-# Install script for directory: D:/school_3/database/hw6-2024/hw6/hw6-Option B
+# Install script for directory: C:/Codes/SDB/Spatial-Index
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "D:/school_3/database/hw6-2024/hw6/hw6-Option B/out/install/x64-Debug")
+  set(CMAKE_INSTALL_PREFIX "C:/Codes/SDB/Spatial-Index/out/install/x64-Debug")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -34,12 +34,12 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("D:/school_3/database/hw6-2024/hw6/hw6-Option B/out/build/x64-Debug/3rd/freeglut/cmake_install.cmake")
+  include("C:/Codes/SDB/Spatial-Index/out/build/x64-Debug/3rd/freeglut/cmake_install.cmake")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("D:/school_3/database/hw6-2024/hw6/hw6-Option B/out/build/x64-Debug/3rd/shapelib/cmake_install.cmake")
+  include("C:/Codes/SDB/Spatial-Index/out/build/x64-Debug/3rd/shapelib/cmake_install.cmake")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT)
@@ -50,5 +50,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "D:/school_3/database/hw6-2024/hw6/hw6-Option B/out/build/x64-Debug/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "C:/Codes/SDB/Spatial-Index/out/build/x64-Debug/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

@@ -1,8 +1,8 @@
-# Install script for directory: D:/school_3/database/hw6-2024/hw6/hw6-Option B/3rd/freeglut
+# Install script for directory: C:/Codes/SDB/Spatial-Index/3rd/freeglut
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "D:/school_3/database/hw6-2024/hw6/hw6-Option B/out/install/x64-Debug")
+  set(CMAKE_INSTALL_PREFIX "C:/Codes/SDB/Spatial-Index/out/install/x64-Debug")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -33,27 +33,27 @@ if(NOT DEFINED CMAKE_CROSSCOMPILING)
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE STATIC_LIBRARY FILES "D:/school_3/database/hw6-2024/hw6/hw6-Option B/out/build/x64-Debug/3rd/freeglut/lib/freeglut_staticd.lib")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE STATIC_LIBRARY FILES "C:/Codes/SDB/Spatial-Index/out/build/x64-Debug/3rd/freeglut/lib/freeglut_staticd.lib")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Devel" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include/GL" TYPE FILE FILES
-    "D:/school_3/database/hw6-2024/hw6/hw6-Option B/3rd/freeglut/include/GL/freeglut.h"
-    "D:/school_3/database/hw6-2024/hw6/hw6-Option B/3rd/freeglut/include/GL/freeglut_ucall.h"
-    "D:/school_3/database/hw6-2024/hw6/hw6-Option B/3rd/freeglut/include/GL/freeglut_ext.h"
-    "D:/school_3/database/hw6-2024/hw6/hw6-Option B/3rd/freeglut/include/GL/freeglut_std.h"
+    "C:/Codes/SDB/Spatial-Index/3rd/freeglut/include/GL/freeglut.h"
+    "C:/Codes/SDB/Spatial-Index/3rd/freeglut/include/GL/freeglut_ucall.h"
+    "C:/Codes/SDB/Spatial-Index/3rd/freeglut/include/GL/freeglut_ext.h"
+    "C:/Codes/SDB/Spatial-Index/3rd/freeglut/include/GL/freeglut_std.h"
     )
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Devel" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE RENAME "freeglut.pc" FILES "D:/school_3/database/hw6-2024/hw6/hw6-Option B/out/build/x64-Debug/freeglut.pc")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE RENAME "freeglut.pc" FILES "C:/Codes/SDB/Spatial-Index/out/build/x64-Debug/freeglut.pc")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
   if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/cmake/FreeGLUT/FreeGLUTTargets.cmake")
     file(DIFFERENT _cmake_export_file_changed FILES
          "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/cmake/FreeGLUT/FreeGLUTTargets.cmake"
-         "D:/school_3/database/hw6-2024/hw6/hw6-Option B/out/build/x64-Debug/3rd/freeglut/CMakeFiles/Export/6f3d6babffe806515ac5156322d25f7d/FreeGLUTTargets.cmake")
+         "C:/Codes/SDB/Spatial-Index/out/build/x64-Debug/3rd/freeglut/CMakeFiles/Export/6f3d6babffe806515ac5156322d25f7d/FreeGLUTTargets.cmake")
     if(_cmake_export_file_changed)
       file(GLOB _cmake_old_config_files "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/cmake/FreeGLUT/FreeGLUTTargets-*.cmake")
       if(_cmake_old_config_files)
@@ -66,16 +66,16 @@ if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT
     endif()
     unset(_cmake_export_file_changed)
   endif()
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/cmake/FreeGLUT" TYPE FILE FILES "D:/school_3/database/hw6-2024/hw6/hw6-Option B/out/build/x64-Debug/3rd/freeglut/CMakeFiles/Export/6f3d6babffe806515ac5156322d25f7d/FreeGLUTTargets.cmake")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/cmake/FreeGLUT" TYPE FILE FILES "C:/Codes/SDB/Spatial-Index/out/build/x64-Debug/3rd/freeglut/CMakeFiles/Export/6f3d6babffe806515ac5156322d25f7d/FreeGLUTTargets.cmake")
   if(CMAKE_INSTALL_CONFIG_NAME MATCHES "^([Dd][Ee][Bb][Uu][Gg])$")
-    file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/cmake/FreeGLUT" TYPE FILE FILES "D:/school_3/database/hw6-2024/hw6/hw6-Option B/out/build/x64-Debug/3rd/freeglut/CMakeFiles/Export/6f3d6babffe806515ac5156322d25f7d/FreeGLUTTargets-debug.cmake")
+    file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/cmake/FreeGLUT" TYPE FILE FILES "C:/Codes/SDB/Spatial-Index/out/build/x64-Debug/3rd/freeglut/CMakeFiles/Export/6f3d6babffe806515ac5156322d25f7d/FreeGLUTTargets-debug.cmake")
   endif()
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Devel" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/cmake/FreeGLUT" TYPE FILE FILES
-    "D:/school_3/database/hw6-2024/hw6/hw6-Option B/out/build/x64-Debug/3rd/freeglut/FreeGLUT/FreeGLUTConfig.cmake"
-    "D:/school_3/database/hw6-2024/hw6/hw6-Option B/out/build/x64-Debug/3rd/freeglut/FreeGLUT/FreeGLUTConfigVersion.cmake"
+    "C:/Codes/SDB/Spatial-Index/out/build/x64-Debug/3rd/freeglut/FreeGLUT/FreeGLUTConfig.cmake"
+    "C:/Codes/SDB/Spatial-Index/out/build/x64-Debug/3rd/freeglut/FreeGLUT/FreeGLUTConfigVersion.cmake"
     )
 endif()
 

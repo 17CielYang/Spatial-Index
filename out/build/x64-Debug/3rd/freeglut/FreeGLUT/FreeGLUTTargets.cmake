@@ -7,7 +7,7 @@ if(CMAKE_VERSION VERSION_LESS "2.8.3")
    message(FATAL_ERROR "CMake >= 2.8.3 required")
 endif()
 cmake_policy(PUSH)
-cmake_policy(VERSION 2.8.3...3.27)
+cmake_policy(VERSION 2.8.3...3.23)
 #----------------------------------------------------------------
 # Generated CMake target import file.
 #----------------------------------------------------------------
@@ -58,7 +58,7 @@ set_target_properties(FreeGLUT::freeglut_static PROPERTIES
 set_property(TARGET FreeGLUT::freeglut_static APPEND PROPERTY IMPORTED_CONFIGURATIONS DEBUG)
 set_target_properties(FreeGLUT::freeglut_static PROPERTIES
   IMPORTED_LINK_INTERFACE_LANGUAGES_DEBUG "C;RC"
-  IMPORTED_LOCATION_DEBUG "D:/school_3/database/hw6-2024/hw6/hw6-Option B/out/build/x64-Debug/3rd/freeglut/lib/freeglut_staticd.lib"
+  IMPORTED_LOCATION_DEBUG "C:/Codes/SDB/Spatial-Index/out/build/x64-Debug/3rd/freeglut/lib/freeglut_staticd.lib"
   )
 
 # This file does not depend on other imported targets which have

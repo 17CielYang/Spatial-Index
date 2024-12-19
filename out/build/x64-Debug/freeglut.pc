@@ -1,5 +1,5 @@
-prefix=D:/school_3/database/hw6-2024/hw6/hw6-Option B/out/install/x64-Debug
-libdir=D:/school_3/database/hw6-2024/hw6/hw6-Option B/out/install/x64-Debug/lib
+prefix=C:/Codes/SDB/Spatial-Index/out/install/x64-Debug
+libdir=C:/Codes/SDB/Spatial-Index/out/install/x64-Debug/lib
 includedir=${prefix}/include
 
 Name: glut

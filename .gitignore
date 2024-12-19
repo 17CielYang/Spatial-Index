@@ -1,0 +1,110 @@
+# =========================================
+# Visual Studio 文件
+# =========================================
+# Build 结果
+[Bb]uild/
+[Bb]in/
+[Oo]bj/
+
+# User-specific files
+*.user
+*.userosscache
+*.suo
+*.userprefs
+
+# Visual Studio 2019/2022 specific folders
+.vscode/
+.vs/
+
+# Backup files
+*.log
+*.tlog
+*.lastbuildstate
+
+# Temporary files
+*.tmp
+*.tmp_proj
+*.TMP
+*.bak
+*.swp
+
+# Web publish folder
+[Pp]ublish/
+*.publish.xml
+
+# SQL Server
+*.mdf
+*.ldf
+
+# ================================
+# macOS 系统文件
+# ================================
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# =================================
+# Windows 系统文件
+# =================================
+Thumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# =================================
+# 常见语言和工具
+# =================================
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.venv/
+.env
+
+# Node.js
+node_modules/
+npm-debug.log
+yarn-error.log
+pnpm-debug.log
+
+# Logs
+*.log
+
+# =================================
+# C++/C 编译文件
+# =================================
+*.obj
+*.o
+*.a
+*.lib
+*.so
+*.dll
+*.exe
+*.out
+*.pdb
+
+# =================================
+# JetBrains IDE 文件 (如 Rider, CLion)
+# =================================
+.idea/
+*.iml
+
+# =================================
+# General IDE Files
+# =================================
+*.ipr
+*.iws
+*.sln.docstates
+
+# =================================
+# Git Ignore Exception
+# =================================
+!.gitignore
+
+# ================================
+# 其他配置文件
+# ================================
+*.bak
+*.orig
+*.rej
+*.diff

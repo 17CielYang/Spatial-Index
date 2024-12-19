@@ -3,11 +3,15 @@
     "Local Machine": [
       "out\\build\\x64-Debug",
       "out\\install\\x64-Debug"
+    ],
+    "本地计算机": [
+      "out\\build\\x64-Debug",
+      "out\\install\\x64-Debug"
     ]
   },
   "ExpandedNodes": [
     "",
-    "\\data"
+    "\\3rd"
   ],
   "PreviewInSolutionExplorer": false
 }
