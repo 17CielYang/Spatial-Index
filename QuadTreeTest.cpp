@@ -32,16 +32,18 @@ namespace hw6 {
 
 		srand(time(nullptr));
 		for (int cap = 70; cap <= 200; cap += 10) {
-			QuadTree* qtree = new QuadTree();
 			// Task 构造四叉树，输出四叉树的节点数目和高度
 			// TODO
+			QuadTree* qtree = new QuadTree(cap);
 
 			clock_t start_time = clock();
 			// TODO
+			qtree->constructTree(features);
 			clock_t end_time = clock();
-
 			int height = 0, interiorNum = 0, leafNum = 0;
 			// TODO
+			qtree->countHeight(height);
+			qtree->countNode(interiorNum,leafNum);
 
 			cout << "Capacity " << cap << "\n";
 			cout << "Height: " << height
@@ -53,12 +55,24 @@ namespace hw6 {
 			double x, y;
 			vector<Feature> candidateFeatures;
 			start_time = clock();
-			for (int i = 0; i < 100000; ++i) {
+			//随机生成一个点进行点查询
+			const Envelope& envelope = qtree->root->getEnvelope();
+			double minDist = std::max(envelope.getWidth(), envelope.getHeight());
+			Feature NearestFeature;
+			for (int i = 0; i < 100; ++i) {
+				candidateFeatures.clear();
 				x = -((rand() % 225) / 10000.0 + 73.9812);
 				y = (rand() % 239) / 10000.0 + 40.7247;
 				qtree->NNQuery(x, y, candidateFeatures);
+				// cout << "第" << i << "次测试,candidateFeatures有" << candidateFeatures.size() << endl;
 				// refine step
 				// TODO
+				for (Feature& feature : candidateFeatures) {
+					if (minDist > feature.distance(x, y)) {
+						minDist = feature.distance(x, y);
+						NearestFeature = feature;
+					}
+				}
 			}
 			end_time = clock();
 			cout << "NNQuery time: " << (end_time - start_time) / 1000.0 << "s"

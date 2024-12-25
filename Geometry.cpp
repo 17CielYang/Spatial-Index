@@ -17,7 +17,7 @@ namespace hw6 {
 	bool Envelope::contain(const Envelope& envelope) const {
 		// Task 测试Envelope是否包含关系
 		// TODO
-		if (envelope.getMaxX() < maxX && envelope.getMaxY() < maxY && envelope.getMinX() > minX && envelope.getMinY() > minY)
+		if (envelope.getMaxX()<= maxX && envelope.getMaxY() <= maxY && envelope.getMinX()<= minX && envelope.getMinY()<= minY)
 			return true;
 		return false;
 	}
@@ -44,19 +44,6 @@ namespace hw6 {
 		return Envelope();
 	}
 
-	void Envelope::draw() const {
-		glBegin(GL_LINE_STRIP);
-
-		glVertex2d(minX, minY);
-		glVertex2d(minX, maxY);
-		glVertex2d(maxX, maxY);
-		glVertex2d(maxX, minY);
-		glVertex2d(minX, minY);
-
-		glEnd();
-	}
-
-	// 用于点与 Envelope 的最小距离
 	double Envelope::minDistance(double x, double y) const {
 		double dx = 0.0;
 		if (x < minX) dx = minX - x;
@@ -101,6 +88,18 @@ namespace hw6 {
 		// 若在X或Y方向上没有间隔，则对应方向上的dx或dy为0
 		// 最终距离为欧式距离
 		return std::sqrt(dx * dx + dy * dy);
+	}
+
+	void Envelope::draw() const {
+		glBegin(GL_LINE_LOOP);
+
+		glVertex2d(minX, minY);
+		glVertex2d(minX, maxY);
+		glVertex2d(maxX, maxY);
+		glVertex2d(maxX, minY);
+		glVertex2d(minX, minY);
+
+		glEnd();
 	}
 
 	/*

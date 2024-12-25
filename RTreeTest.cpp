@@ -233,8 +233,8 @@ namespace hw6 {
 				delete geom2[i];
 			geom2.clear();
 
-			//cout << "RTree Construction: " << cct << " / " << ncase
-			//     << " tests are passed" << endl;
+			cout << "RTree Construction: " << cct << " / " << ncase
+			     << " tests are passed" << endl;
 		}
 		else if (t == TEST8) {
 			cout << "TEST8: RTreeAnalysis" << endl;

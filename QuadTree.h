@@ -11,6 +11,7 @@ namespace hw6 {
 	private:
 		Envelope bbox;
 		QuadNode* children[4];
+		//QuadNode* parentNode;
 		std::vector<Feature> features;
 
 	public:
@@ -31,6 +32,7 @@ namespace hw6 {
 		const Envelope& getEnvelope() { return bbox; }
 
 		QuadNode* getChildNode(size_t i) { return i < 4 ? children[i] : nullptr; }
+		//QuadNode* getParentNode() { return parentNode; }
 
 		size_t getFeatureNum() const { return features.size(); }
 
@@ -82,6 +84,7 @@ namespace hw6 {
 		virtual bool NNQuery(double x, double y, std::vector<Feature>& features) override;
 
 		QuadNode* pointInLeafNode(double x, double y) {
+			// Task NN query
 			return root->pointInLeafNode(x, y);
 		}
 

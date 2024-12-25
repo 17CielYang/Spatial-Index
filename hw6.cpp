@@ -4,6 +4,7 @@
 #include "Common.h"
 #include "Geometry.h"
 #include "shapelib/shapefil.h"
+#include "Tree.h"
 
 #include "CMakeIn.h" // 配置注入
 
@@ -17,6 +18,8 @@
 #include <memory>
 #include <vector>
 
+#define USE_RTREE
+
 #ifdef USE_RTREE
 #include "RTree.h"
 using TreeTy = hw6::RTree;
@@ -24,7 +27,6 @@ using TreeTy = hw6::RTree;
 #include "QuadTree.h"
 using TreeTy = hw6::QuadTree;
 #endif
-
 
 using namespace std;
 
@@ -199,9 +201,9 @@ void loadRoadData() {
 void loadStationData() {
 	vector<hw6::Geometry*> geom = readGeom(PROJ_SRC_DIR "/data/station");
 	vector<string> name = readName(PROJ_SRC_DIR "/data/station");
-
+	cout << "read station" << endl;
 	features.clear();
-	for (size_t i = 0; i < geom.size(); ++i)
+	for (size_t i = 0; i < geom.size(); ++i) 
 		features.push_back(hw6::Feature(name[i], geom[i]));
 
 	cout << "station number: " << geom.size() << endl;
@@ -228,6 +230,20 @@ void loadTaxiData() {
 /*
  * 区域查询
  */
+//feature列表去重
+void uniqueFeatures(std::vector<hw6::Feature>& features) {
+	std::set<std::string> uniqueNames;
+	std::vector<hw6::Feature> uniqueFeatures;
+
+	for (const auto& feature : features) {
+		if (uniqueNames.insert(feature.getName()).second) {
+			uniqueFeatures.push_back(feature);
+		}
+	}
+
+	features.swap(uniqueFeatures); // 用去重后的特征列表替换原始列表
+}
+
 void rangeQuery() {
 	vector<hw6::Feature> candidateFeatures;
 
@@ -236,7 +252,14 @@ void rangeQuery() {
 		pointTree->rangeQuery(selectedRect, candidateFeatures);
 	else if (mode == RANGELINE)
 		roadTree->rangeQuery(selectedRect, candidateFeatures);
-
+	uniqueFeatures(candidateFeatures);
+	//把查询结果标红？
+	selectedFeatures.clear();
+	for (const auto& feature : candidateFeatures) {
+		if (feature.getGeom()->intersects(selectedRect)) {
+			selectedFeatures.push_back(feature);
+		}
+	}
 	// refine step (精确判断时，需要去重，避免查询区域和几何对象的重复计算)
 	// TODO
 }
@@ -252,7 +275,21 @@ void NNQuery(hw6::Point p) {
 		pointTree->NNQuery(p.getX(), p.getY(), candidateFeatures);
 	else if (mode == NNLINE)
 		roadTree->NNQuery(p.getX(), p.getY(), candidateFeatures);
+	
+	uniqueFeatures(candidateFeatures);
 
+	double minDist,dist;
+	minDist = candidateFeatures[0].distance(p.getX(), p.getY());
+	nearestFeature = candidateFeatures[0];
+
+	//把最后查询结果储存进selectFeatures当中
+	for (const auto& feature : candidateFeatures) {
+		dist = feature.distance(p.getX(), p.getY());
+		if (dist < minDist) 
+			minDist = dist;
+		nearestFeature = feature;
+		}
+	//cout << "结果数量" << selectedFeatures.size() << endl;
 	// refine step (精确计算查询点与几何对象的距离)
 	// TODO
 }
@@ -485,12 +522,12 @@ int main(int argc, char* argv[]) {
 
 	pointTree = make_unique<TreeTy>();
 	roadTree = make_unique<TreeTy>();
-
+	cout << "read road data" << endl;
 	loadRoadData();
-
+	cout << "read road data done" << endl;
 	loadStationData();
 
-	glutInit(&argc, argv);
+	glutInit_ATEXIT_HACK(&argc, argv);
 	glutInitWindowSize(screenWidth, screenHeight);
 	glutInitWindowPosition(0, 0);
 	glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE);

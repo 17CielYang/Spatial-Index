@@ -1,26 +1,30 @@
 ﻿#ifndef TREE_H_INCLUDED
 #define TREE_H_INCLUDED
 #include <string>
+#include<set>
 #include "Geometry.h"
 
 namespace hw6 {
 
 	class Feature {
 	private:
+		//int fid;
 		std::string name;
 		Geometry* geom;
 
 	public:
 		Feature() : geom(NULL) {}
 		Feature(const std::string& name, Geometry* geom) : name(name), geom(geom) {}
-
+		//Feature(const std::string& name, Geometry* geom, int fid) : name(name), geom(geom), fid(fid) {}
 		const std::string& getName() const { return name; }
 
 		const Geometry* getGeom() const { return geom; }
 
 		const Envelope& getEnvelope() const { return geom->getEnvelope(); }
 
-		double maxDistance2Envelope(double x, double y) const {
+		//const int getFid() const { return fid; }
+
+		double maxDistance2Envelope(double x, double y) const { // 计算点到Envelope四个角的最大欧式距离
 			const Envelope& e = geom->getEnvelope();
 			double x1 = e.getMinX();
 			double y1 = e.getMinY();
@@ -34,7 +38,7 @@ namespace hw6 {
 
 			return std::max(std::max(d1, d2), std::max(d3, d4));
 		}
-
+		
 		double distance(double x, double y) const {
 			Point point(x, y);
 			return geom->distance(&point);
@@ -58,6 +62,7 @@ namespace hw6 {
 
 	public:
 		Tree(size_t cap) : capacity(cap) {}
+		virtual ~Tree() {}
 
 		int getCapacity() const { return capacity; }
 
