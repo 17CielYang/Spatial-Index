@@ -4,8 +4,20 @@
 #include "Geometry.h"
 #include "Tree.h"
 #include <string>
+#include <queue>
 
 namespace hw6 {
+	struct Distance {
+		double dist;            // 距离值
+		const Feature* feature; // 指向的特征
+
+		Distance(double d, const Feature* f) : dist(d), feature(f) {}
+
+		// 比较运算符，用于最小堆
+		bool operator<(const Distance& other) const {
+			return dist < other.dist;
+		}
+	};
 
 	class QuadNode {
 	private:
@@ -58,6 +70,9 @@ namespace hw6 {
 		void rangeQuery(const Envelope& rect, std::vector<Feature>& features);
 
 		QuadNode* pointInLeafNode(double x, double y);
+
+		virtual void collectAllFeatures(std::vector<Feature>& allFeatures);
+		void KNNQuery(double x, double y, int k, std::priority_queue<Distance, std::vector<Distance>, std::less<Distance>>& pq);
 	};
 
 	class QuadTree : public Tree {
@@ -83,6 +98,13 @@ namespace hw6 {
 
 		virtual bool NNQuery(double x, double y, std::vector<Feature>& features) override;
 
+		virtual void spatialJoin(double distance, std::vector<Feature> features, std::vector<std::pair<Feature, Feature>>& result,int mode) ;
+		
+		virtual bool KNNQuery(double x, double y, int k, std::vector<Feature>& features);
+
+		virtual void getAllFeatures(std::vector<Feature>& features);
+
+
 		QuadNode* pointInLeafNode(double x, double y) {
 			// Task NN query
 			return root->pointInLeafNode(x, y);
@@ -94,7 +116,10 @@ namespace hw6 {
 		static void test(int t);
 
 		static void analyse();
+
+		//static void testSpatialJoin(std::vector<Feature> Roadfeature, std::vector<Feature>Pointfeature);
 	};
+
 
 } // namespace hw6
 

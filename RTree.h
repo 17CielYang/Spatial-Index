@@ -10,6 +10,7 @@
 #include <string>
 #include <vector>
 #include <random>
+#include <iomanip>
 
 #include "CMakeIn.h"
 
@@ -17,6 +18,17 @@ namespace hw6 {
 
 	/// <summary>
 	/// </summary>
+	struct Distance {
+		double dist;            // 距离值
+		const Feature* feature; // 指向的特征
+
+		Distance(double d, const Feature* f) : dist(d), feature(f) {}
+
+		// 比较运算符，用于最小堆
+		bool operator<(const Distance& other) const {
+			return dist < other.dist;
+		}
+	};
 	class RNode {
 	private:
 		RNode* parent = nullptr;
@@ -77,6 +89,10 @@ namespace hw6 {
 		void leafNodesQuery(const Envelope& rect, std::vector<RNode*>& leafNodes);
 
 		RNode* pointInLeafNode(double x, double y);
+
+		void KNNQuery(double x, double y, int k, std::priority_queue<Distance, std::vector<Distance>, std::less<Distance>>& pq);
+
+		void collectAllFeatures(std::vector<Feature>& allFeatures);
 	};
 
 	class RTree : public Tree {
@@ -107,13 +123,28 @@ namespace hw6 {
 
 		bool NNQuery(double x, double y, std::vector<Feature>& features) override;
 
+		//virtual bool spatialJoin(double distance, std::vector<Feature> features, std::vector<std::pair<Feature, Feature>>& result);
+		
+		//获得当前树中的所有元素
+		virtual void getAllFeatures(std::vector<Feature>& features);
+
+		// bool KNNQuery(double x, double y, int k, std::vector<Feature>& features) override;
+
+		// void spatialJoinNestedLoopIndex(std::vector<Feature>& features, double distance, short mode) override;
+		
+		// void spatialJoinTreeMatching(Tree* tree, double distance, short mode) override;
+
+		bool KNNQuery(double x, double y, int k, std::vector<Feature>& result);
+		
+		void spatialJoin(double distance, RTree* tree, std::vector<std::pair<Feature, Feature>>& result, int mode);
+
 		RNode* pointInLeafNode(double x, double y) {
 			if (root != nullptr) return root->pointInLeafNode(x, y);
 			else return nullptr;
 		}
 
 		void insertFeature(RNode* node, const Feature& feature);
-		void splitInnerNode(RNode* node);
+		void splitNonLeafNode(RNode* node);
 		void splitLeafNode(RNode* node);
 		void getLeafNodes(std::vector<RNode*>& leafNodes);
 
@@ -126,18 +157,7 @@ namespace hw6 {
 		static void analyse();
 	};
 
-	struct Distance {
-		RNode* pNode;
-		double distance;
-
-		// 构造函数
-		Distance(RNode* p, double d) : pNode(p), distance(d) {}
-
-		// 排序规则，按距离从小到大排序
-		bool operator>(const Distance& other) const {
-			return distance > other.distance;  // 越小越排前面
-		}
-	};
+	
 
 } // namespace hw6
 

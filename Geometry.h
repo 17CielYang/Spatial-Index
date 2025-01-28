@@ -10,6 +10,11 @@ namespace hw6 {
 	class Point;
 	class LineString;
 	class Polygon;
+	class MultiPoint;
+	class MultiLineString;
+	class MultiPolygon;
+
+
 
 	class Envelope {
 	private:
@@ -53,8 +58,11 @@ namespace hw6 {
 		bool contain(const Envelope& envelope) const;
 		bool intersect(const Envelope& envelope) const;
 		Envelope unionEnvelope(const Envelope& envelope) const;
+		Envelope expand(double d) const {
+			return Envelope(minX - d, minY - d, maxX + d, maxY + d);
+		}
 	};
-
+	
 	/*
 	 * Geometry hierarchy
 	 */
@@ -135,6 +143,10 @@ namespace hw6 {
 
 		// intersection test with the envelope for range query
 		virtual bool intersects(const Envelope& rect) const;
+		virtual bool intersects(const LineString* line) const;
+
+		virtual bool contain(const Point& p) const;
+		virtual bool contain(const LineString& line) const;
 
 		virtual void draw() const;
 
@@ -144,13 +156,21 @@ namespace hw6 {
 	class Polygon : public Geometry {
 	private:
 		LineString exteriorRing;
+		size_t innerRingsNum;
+		std::vector<LineString> innerRings;
 
 	public:
 		Polygon() {}
-		Polygon(LineString& ering) : exteriorRing(ering) { constructEnvelope(); }
+		Polygon(LineString& ering) : exteriorRing(ering),innerRingsNum(0) { constructEnvelope(); }
+		Polygon(const LineString& exteriorRings, const std::vector<LineString>& innerRings)
+			: exteriorRing(exteriorRings), innerRings(innerRings), innerRingsNum(innerRings.size()) {
+			constructEnvelope();
+		}
 		virtual ~Polygon() {}
 
 		LineString getExteriorRing() const { return exteriorRing; }
+		LineString getInnerRingN(int i)const { return innerRings[i]; }
+		size_t getInnerRingNum() const { return innerRingsNum; }
 
 		virtual void constructEnvelope() { envelope = exteriorRing.getEnvelope(); }
 
@@ -169,6 +189,79 @@ namespace hw6 {
 		virtual void draw() const;
 
 		virtual void print() const;
+	};
+
+	// MultiPoint 类
+	class MultiPoint : public Geometry {
+	public:
+		std::vector<Point> points;
+
+		MultiPoint(const std::vector<Point>& points) : points(points) {}
+
+		// 添加一个点
+		void addPoint(const Point& point) {
+			points.push_back(point);
+		}
+
+		// 获取点的数量
+		size_t size() const {
+			return points.size();
+		}
+
+		virtual void draw() {
+			for (const auto& point : points) {
+				point.draw();  // 绘制每个点
+			}
+		}
+	};
+	// MultiLineString 类
+	class MultiLineString : public Geometry {
+	public:
+		std::vector<LineString> lines;
+
+		MultiLineString(const std::vector<LineString>& lines) : lines(lines) {}
+
+		// 添加一条线段
+		void addLine(const LineString& line) {
+			lines.push_back(line);
+		}
+
+		// 获取线段的数量
+		size_t size() const {
+			return lines.size();
+		}
+
+		// 绘制多个线段
+		void draw() const override {
+			for (const auto& line : lines) {
+				line.draw();  // 绘制每条线段
+			}
+		}
+	};
+
+	// MultiPolygon 类
+	class MultiPolygon : public Geometry {
+	public:
+		std::vector<Polygon> polygons;
+
+		MultiPolygon(const std::vector<Polygon>& polygons) : polygons(polygons) {}
+
+		// 添加一个多边形
+		void addPolygon(const Polygon& polygon) {
+			polygons.push_back(polygon);
+		}
+
+		// 获取多边形的数量
+		size_t size() const {
+			return polygons.size();
+		}
+
+		// 绘制多个多边形
+		void draw() const override {
+			for (const auto& polygon : polygons) {
+				polygon.draw();  // 绘制每个多边形
+			}
+		}
 	};
 
 } // namespace hw6

@@ -1,4 +1,5 @@
-﻿#include "QuadTree.h"
+﻿
+#include "QuadTree.h"
 #include "Common.h"
 #include <ctime>
 #include "CMakeIn.h"
@@ -64,7 +65,7 @@ namespace hw6 {
 				x = -((rand() % 225) / 10000.0 + 73.9812);
 				y = (rand() % 239) / 10000.0 + 40.7247;
 				qtree->NNQuery(x, y, candidateFeatures);
-				// cout << "第" << i << "次测试,candidateFeatures有" << candidateFeatures.size() << endl;
+				 cout << "第" << i << "次测试,candidateFeatures有" << candidateFeatures.size() << endl;
 				// refine step
 				// TODO
 				for (Feature& feature : candidateFeatures) {
@@ -303,12 +304,88 @@ namespace hw6 {
 			cout << "QuadTree Construction: " << cct << " / " << ncase
 				<< " tests are passed" << endl;
 		}
+		else if (t == TEST6) {
+			cout << "测试6: Spatial Join" << endl;
+			cout << "找出每条道路100m内的公共自行车站点" << endl;
+			vector<Geometry*> geom = readGeom(PROJ_SRC_DIR "/data/highway");
+			
+			vector<Feature> roads;
+			roads.clear();
+			for (size_t i = 0; i < geom.size(); ++i)
+				roads.push_back(hw6::Feature(to_string(i), geom[i]));
+			cout << "道路数据读取完毕" << endl;
+			geom.clear();
+
+			geom = readGeom(PROJ_SRC_DIR "/data/station");
+			vector<string> name = readName(PROJ_SRC_DIR "/data/station");
+			vector<Feature> stations;
+			for (size_t i = 0; i < geom.size(); ++i)
+				stations.push_back(Feature(name[i], geom[i]));
+			cout << "站点数据读取完毕" << endl;
+
+			QuadTree roadtree;
+			roadtree.setCapacity(60);
+			roadtree.constructTree(roads);
+
+			QuadTree pointtree;
+			pointtree.setCapacity(60);
+			pointtree.constructTree(stations);
+
+			vector<pair<Feature, Feature>> PointJoinRoad;
+			vector<pair<Feature, Feature>> RoadJoinPoint;
+			//cout << "PointJoinRoad查询" << endl;
+			//pointtree.spatialJoin(100, roads, PointJoinRoad,POINTJOINLINE);
+			cout << "RoadJoinPoint查询" << endl;
+			clock_t start_time = clock();
+			roadtree.spatialJoin(10, stations, RoadJoinPoint,LINEJOINPOINT);
+			clock_t end_time = clock();
+			cout << "查询耗时:" << (end_time - start_time) / 1000.0 << "s" << endl;
+		}
 		else if (t == TEST8) {
 			cout << "测试8: QuadTreeAnalysis" << endl;
 			analyse();
 		}
+		else if (t == TEST7) {
+			cout << "测试7: Polygon Spatial Join" << endl;
+			cout << "找出每个多边形100m内的公共自行车站点" << endl;
+
+			vector<Geometry*> geom = readGeom(PROJ_SRC_DIR "/data/station");
+			vector<string> name = readName(PROJ_SRC_DIR "/data/station");
+			vector<Feature> stations;
+			for (size_t i = 0; i < geom.size(); ++i)
+				stations.push_back(Feature(name[i], geom[i]));
+			cout << "站点数据读取完毕:" << geom.size()<<endl;
+			geom.clear();
+
+			geom = readGeom(PROJ_SRC_DIR "/data/polygon1");
+			vector<Feature> polygons;
+			polygons.clear();
+			for (size_t i = 0; i < geom.size(); ++i)
+				polygons.push_back(hw6::Feature("polygon" + std::to_string(i), geom[i]));
+			cout << "polygon数据读取完毕，有"<< geom.size() << endl;
+
+			QuadTree pointtree;
+			pointtree.setCapacity(60);
+			pointtree.constructTree(stations);
+
+			QuadTree polygontree;
+			polygontree.setCapacity(20);
+			polygontree.constructTree(polygons);
+
+			vector<pair<Feature, Feature>> PolygonJoinPoint;
+
+			cout << "polygon join point查询" << endl;
+			if (polygontree.root == nullptr)
+				cout << "nullptr\n";
+			clock_t start_time = clock();
+			polygontree.spatialJoin(10, stations, PolygonJoinPoint, POLYGONJOINPOINT);
+			clock_t end_time = clock();
+			cout << "查询耗时:" << (end_time - start_time) / 1000.0 << "s" << endl;
+		}
 
 		cout << "**********************End**********************" << endl;
 	}
+
+
 
 } // namespace hw6

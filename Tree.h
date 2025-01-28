@@ -38,6 +38,20 @@ namespace hw6 {
 
 			return std::max(std::max(d1, d2), std::max(d3, d4));
 		}
+		double minDistance2Envelope(double x, double y) const {
+			const Envelope& e = geom->getEnvelope();
+			double x1 = e.getMinX();
+			double y1 = e.getMinY();
+			double x2 = e.getMaxX();
+			double y2 = e.getMaxY();
+
+			double d1 = sqrt((x - x1) * (x - x1) + (y - y1) * (y - y1));
+			double d2 = sqrt((x - x1) * (x - x1) + (y - y2) * (y - y2));
+			double d3 = sqrt((x - x2) * (x - x2) + (y - y1) * (y - y1));
+			double d4 = sqrt((x - x2) * (x - x2) + (y - y2) * (y - y2));
+			return std::min(std::min(d1, d2), std::min(d3, d4));
+
+		}
 		
 		double distance(double x, double y) const {
 			Point point(x, y);
@@ -79,6 +93,10 @@ namespace hw6 {
 		virtual void rangeQuery(const Envelope& rect, std::vector<Feature>& features) = 0;
 
 		virtual bool NNQuery(double x, double y, std::vector<Feature>& features) = 0;
+		virtual bool KNNQuery(double x, double y, int k,std::vector<Feature>& features) = 0;
+
+		//virtual bool spatialJoin(double distance, std::vector<Feature> features, std::vector<std::pair<Feature, Feature>>& result) = 0;
+		virtual void getAllFeatures(std::vector<Feature>& features)=0;
 
 		virtual void draw() = 0;
 	};

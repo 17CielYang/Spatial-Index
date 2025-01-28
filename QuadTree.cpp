@@ -1,6 +1,12 @@
 ﻿#include "QuadTree.h"
+#include "Common.h"
 #include <set>
+#include <iomanip>
+#include <queue>
+#include <vector>
+#include <cmath>
 
+extern void uniqueFeatures(std::vector<hw6::Feature>& features);
 namespace hw6 {
 
 	/*
@@ -104,6 +110,50 @@ namespace hw6 {
 		
 	}
 
+	void QuadNode::collectAllFeatures(std::vector<Feature>& allFeatures) {
+		if (isLeafNode()) {
+			// 将当前节点的所有特征加入结果
+			allFeatures.insert(allFeatures.end(), features.begin(), features.end());
+		}
+		else {
+			// 递归收集子节点的特征
+			for (int i = 0; i < 4; ++i) {
+				children[i]->collectAllFeatures(allFeatures);
+			}
+		}
+	}
+
+	void QuadNode::KNNQuery(double x, double y, int k, std::priority_queue<Distance, std::vector<Distance>, std::less<Distance>>& pq) {
+		// 计算当前节点的包围盒到查询点的最小距离
+		double distToNode = bbox.minDistance(x, y);
+
+		// 如果堆中已有 k 个元素，且当前节点包围盒的距离大于堆中最大距离，剪枝
+		if (pq.size() == k && distToNode > pq.top().dist) {
+			return;
+		}
+		// 如果是叶节点，处理特征
+		if (isLeafNode()) {
+			for (const Feature& feature : features) {
+				double dist = feature.distance(x, y); // 计算特征到查询点的距离
+				if (pq.size() < k) {
+					pq.emplace(dist, &feature); // 堆未满，直接插入
+				}
+				else if (dist <= pq.top().dist) {
+					pq.pop();                  // 替换堆顶元素
+					pq.emplace(dist, &feature);
+				}
+			}
+		}
+		else {
+			// 非叶节点，递归处理子节点
+			for (int i = 0; i < 4; ++i) {
+				if (children[i] != nullptr) {
+					children[i]->KNNQuery(x, y, k, pq);
+				}
+			}
+		}
+	}
+
 	void QuadNode::draw() {
 		if (isLeafNode()) {
 			bbox.draw();
@@ -139,6 +189,7 @@ namespace hw6 {
 		//把数据插入Tree
 		root = new QuadNode(bbox);
 		root->add(features);
+		//std::cout <<"数据添加成功:"<<features.size() << std::endl;
 		if (root->getFeatureNum() > capacity) {
 			root->split(capacity);
 		}
@@ -160,55 +211,113 @@ namespace hw6 {
 
 	void QuadTree::rangeQuery(const Envelope& rect, std::vector<Feature>& features) {
 		features.clear();
-
 		// Task range query
 		// TODO
 		// filter step (选择查询区域与几何对象包围盒相交的几何对象)
 		if (root != nullptr) {
 			root->rangeQuery(rect, features);
 		}
-		// 注意四叉树区域查询仅返回候选集，精炼步在hw6的rangeQuery中完成
 	}
-
 	bool QuadTree::NNQuery(double x, double y, std::vector<Feature>& features) {
 		if (!root || !(root->getEnvelope().contain(x, y)))
 			return false;
-
-		// Task NN query
-		// TODO
 		QuadNode* leafNode = root->pointInLeafNode(x, y);
 		if (!leafNode) {
 			return false;
 		}
 		// filter step
 		// (使用maxDistance2Envelope函数，获得查询点到几何对象包围盒的最短的最大距离，然后区域查询获得候选集)
-
 		const Envelope& envelope = root->getEnvelope();
 		double minDist = std::max(envelope.getWidth(), envelope.getHeight());
+		Envelope queryRect;
 		
-		for (size_t i=0;i<leafNode->getFeatureNum();i++){
-			// 假设 Feature 类有 getEnvelope 方法返回特征的边界框
-			Feature feature = leafNode->getFeature(i);
-			const Envelope& featureBBox = feature.getEnvelope();
-			double dist = feature.maxDistance2Envelope(x, y); // 计算点到边界框的最大距离
-			if (dist < minDist) {
-				minDist = dist;
+		if (leafNode->getFeatureNum() == 0) {
+			queryRect = envelope;
+		}
+		else {
+			for (size_t i = 0; i < leafNode->getFeatureNum(); ++i) {
+				const Feature& feature = leafNode->getFeature(i);  // 使用引用避免拷贝
+				double dist = feature.maxDistance2Envelope(x, y);  // 计算点到包围盒的最大距离
+				if (dist < minDist) {
+					minDist = dist;
+				}
 			}
+			queryRect = Envelope(x - minDist, x + minDist, y - minDist, y + minDist);
 		}
 		//如果当前叶节点没有feature，则查询范围是整个包围盒
-		Envelope queryRect(x - minDist, x + minDist, y - minDist, y + minDist);
-		std::cout << "包围盒构建完毕" << std::endl;
-
-		//查询几何特征的包围盒与该区域相交的几何特征（filter）
 		root->rangeQuery(queryRect, features);
+		return true;
+	}
+	// 自定义比较器
+	/*struct PairComparator {
+		bool operator()(const std::pair<Feature, Feature>& a, const std::pair<Feature, Feature>& b) const {
+			if (a.first.getName()!=  b.first.getName()) return a.first < b.first;
+			return a.second < b.second;
+		}
+	};*/
 
-		// 注意四叉树邻近查询仅返回候选集，精炼步在hw6的NNQuery中完成
+	void QuadTree::getAllFeatures(std::vector<Feature>& features) {
+		if (root == nullptr)
+			return;
+		root->collectAllFeatures(features);
+	}
+
+	void QuadTree::spatialJoin(double distance, std::vector<Feature> features, std::vector<std::pair<Feature, Feature>>& result,int mode) {
+		if (root == nullptr || features.size()==0) {
+			return;
+		}
+		std::vector<Feature> allFeaturesA;
+		root->collectAllFeatures(allFeaturesA);
+		uniqueFeatures(allFeaturesA);
+		std::cout << allFeaturesA.size() << std::endl;
+		std::cout << features.size() << std::endl;
+		int a = 0;
+		for (auto& fb : features) {
+			//Envelope e = Envelope(fb.getEnvelope().getMinX() - distance, fb.getEnvelope().getMinY() - distance, fb.getEnvelope().getMaxX() + distance, fb.getEnvelope().getMaxY() + distance);
+			//std::vector<Feature> candidateFeatures;
+			//rangeQuery(e, candidateFeatures);
+			for (auto& fa : allFeaturesA) {
+				//double dist = -std::numeric_limits<double>::infinity();
+				if (mode == POINTJOINLINE)
+				{
+					Envelope e = fa.getEnvelope().expand(distance);
+					if (fb.getGeom()->intersects(e))
+						result.push_back(std::make_pair(fa, fb));
+				}
+				else if (mode == LINEJOINPOINT|| mode == POLYGONJOINPOINT) {
+					Envelope e = fb.getEnvelope().expand(distance);
+					if (fa.getGeom()->intersects(e))
+						result.push_back(std::make_pair(fa, fb));
+				}
+
+			}
+		}
+		std::cout << "结果如下, 一共找到:" << result.size()<< std::endl;
+	}
+
+	bool QuadTree::KNNQuery(double x, double y, int k, std::vector<Feature>& result) {
+		if (!root || !(root->getEnvelope().contain(x, y)))
+			return false;
+		result.clear();
+		std::priority_queue<Distance, std::vector<Distance>, std::less<Distance>> pq;//最小堆
+
+		root->KNNQuery(x, y, k, pq);
+
+		// 将堆中的元素转换为结果
+		while (!pq.empty()) {
+			result.push_back(*pq.top().feature);
+			pq.pop();
+		}
+		std::cout << "knn查询完成" << std::endl;
 		return true;
 	}
 
+	
 	void QuadTree::draw() {
 		if (root)
 			root->draw();
 	}
 
+
+	/*其他结构定义*/
 } // namespace hw6

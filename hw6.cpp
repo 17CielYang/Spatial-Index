@@ -32,6 +32,7 @@ using namespace std;
 
 int screenWidth = 640;
 int screenHeight = 480;
+int kvalue=10;
 
 double pointSize = 2.0;
 
@@ -39,18 +40,24 @@ int mode;
 
 vector<hw6::Feature> features;
 vector<hw6::Feature> roads;
+vector<hw6::Feature> polygons;
 bool showRoad = true;
-
-unique_ptr<hw6::Tree> pointTree;
+bool showPolygon = false;
+//unique_ptr<hw6::Tree> stationTree;
 unique_ptr<hw6::Tree> roadTree;
+//unique_ptr<hw6::Tree> texiTree;
+unique_ptr<hw6::Tree> pointTree;
+unique_ptr<hw6::Tree> polygonTree;
 bool showTree = false;
 
 hw6::Feature nearestFeature;
+
 
 bool firstPoint = true;
 hw6::Point corner[2];
 hw6::Envelope selectedRect;
 vector<hw6::Feature> selectedFeatures;
+vector<hw6::Feature> nearestkFeatures;
 
 /*
  * shapefile文件中name和geometry属性读取
@@ -226,6 +233,21 @@ void loadTaxiData() {
 	pointTree->setCapacity(100);
 	pointTree->constructTree(features);
 }
+/*
+ * 读取polygon
+ */
+void loadPolygonData() {
+	vector<hw6::Geometry*> geom = readGeom(PROJ_SRC_DIR "/data/polygon1");
+	//vector<string> name = readName(PROJ_SRC_DIR "/data/polygon");
+	polygons.clear();
+	for (size_t i = 0; i < geom.size(); ++i)
+		polygons.push_back(hw6::Feature("polygon" + std::to_string(i), geom[i]));
+
+	cout << "polygon number: " << geom.size() << endl;
+	polygonTree->setCapacity(6);
+	polygonTree->constructTree(polygons);
+}
+
 
 /*
  * 区域查询
@@ -252,14 +274,23 @@ void rangeQuery() {
 		pointTree->rangeQuery(selectedRect, candidateFeatures);
 	else if (mode == RANGELINE)
 		roadTree->rangeQuery(selectedRect, candidateFeatures);
+	else if (mode == RANGEPOLYGON) {
+		polygonTree->rangeQuery(selectedRect, candidateFeatures);
+		//cout << "polygon range\n";
+	}
 	uniqueFeatures(candidateFeatures);
 	//把查询结果标红？
 	selectedFeatures.clear();
 	for (const auto& feature : candidateFeatures) {
-		if (feature.getGeom()->intersects(selectedRect)) {
-			selectedFeatures.push_back(feature);
+		if (mode == RANGEPOINT|| mode == RANGELINE) {
+			if (feature.getGeom()->intersects(selectedRect)) {
+				selectedFeatures.push_back(feature);
+			}
+		}else if (mode == RANGEPOLYGON) {
+				selectedFeatures.push_back(feature);
 		}
 	}
+	//cout << selectedFeatures.size() << endl;
 	// refine step (精确判断时，需要去重，避免查询区域和几何对象的重复计算)
 	// TODO
 }
@@ -275,24 +306,53 @@ void NNQuery(hw6::Point p) {
 		pointTree->NNQuery(p.getX(), p.getY(), candidateFeatures);
 	else if (mode == NNLINE)
 		roadTree->NNQuery(p.getX(), p.getY(), candidateFeatures);
-	
+	else if (mode == NNPOLYGON) {
+		polygonTree->NNQuery(p.getX(), p.getY(), candidateFeatures);
+		//cout << "polygon nn" << endl;
+	}
 	uniqueFeatures(candidateFeatures);
 
 	double minDist,dist;
-	minDist = candidateFeatures[0].distance(p.getX(), p.getY());
-	nearestFeature = candidateFeatures[0];
+	if (candidateFeatures.size() != 0)
+	{
+		minDist = candidateFeatures[0].distance(p.getX(), p.getY());
+		nearestFeature = candidateFeatures[0];
 
-	//把最后查询结果储存进selectFeatures当中
-	for (const auto& feature : candidateFeatures) {
-		dist = feature.distance(p.getX(), p.getY());
-		if (dist < minDist) 
-			minDist = dist;
-		nearestFeature = feature;
+		//把最后查询结果储存进selectFeatures当中
+		for (const auto& feature : candidateFeatures) {
+			dist = feature.distance(p.getX(), p.getY());
+			if (dist < minDist)
+				minDist = dist;
+			nearestFeature = feature;
 		}
+	}
 	//cout << "结果数量" << selectedFeatures.size() << endl;
 	// refine step (精确计算查询点与几何对象的距离)
 	// TODO
 }
+/*spatial join 查询道路100米范围内的站点*/
+
+void KNNQuery(hw6::Point p) {
+	//std::cout << "Enter an integer: " << endl;
+	//std::cin >> k;
+	vector<hw6::Feature> candidateFeatures;
+	if (mode == KNNPOINT)
+		pointTree->KNNQuery(p.getX(), p.getY(), kvalue, candidateFeatures);
+	else if (mode == KNNLINE)
+		roadTree->KNNQuery(p.getX(), p.getY(), kvalue, candidateFeatures);
+	else if (mode == KNNPOLYGON)
+		polygonTree->KNNQuery(p.getX(), p.getY(), kvalue, candidateFeatures);
+	nearestkFeatures.clear();
+
+	uniqueFeatures(candidateFeatures);
+	for (const auto& feature : candidateFeatures) {
+		
+			nearestkFeatures.push_back(feature);
+	}
+
+}
+
+
 
 /*
  * 从屏幕坐标转换到地理坐标
@@ -344,6 +404,11 @@ void display() {
 		for (size_t i = 0; i < features.size(); ++i)
 			features[i].draw();
 	}
+	if (showPolygon) {
+		glColor3d(0.0, 146 / 255.0, 247 / 255.0); // 红色
+		for (size_t i = 0; i < polygons.size(); ++i)
+			polygons[i].draw();
+	}
 
 	// 四叉树绘制
 	if (showTree) {
@@ -368,14 +433,37 @@ void display() {
 		nearestFeature.draw();
 		glLineWidth(1.0);
 	}
+	if (mode == NNPOLYGON) {
+		glLineWidth(3.0);
+		glColor3d(0.9, 0.0, 0.0);
+		nearestFeature.draw();
+		glLineWidth(1.0);
+	}
+	if (mode == KNNPOINT) {
+		glPointSize(5.0);
+		glColor3d(0.9, 0.0, 0.0);
+		for (size_t i = 0; i < nearestkFeatures.size(); ++i)
+			nearestkFeatures[i].draw();
+	}
+	if (mode == KNNLINE||mode==KNNPOLYGON) {
+		glLineWidth(3.0);
+		glColor3d(0.9, 0.0, 0.0);
+		for (size_t i = 0; i < nearestkFeatures.size(); ++i)
+			nearestkFeatures[i].draw();
+		glLineWidth(1.0);
+	}
 
 	// 区域选择绘制
-	if (mode == RANGEPOINT || mode == RANGELINE) {
+	if (mode == RANGEPOINT || mode == RANGELINE||mode==RANGEPOLYGON) {
 		glColor3d(0.0, 0.0, 0.0);
 		selectedRect.draw();
 		glColor3d(1.0, 0.0, 0.0);
-		for (size_t i = 0; i < selectedFeatures.size(); ++i)
+		
+		for (size_t i = 0; i < selectedFeatures.size(); ++i){
 			selectedFeatures[i].draw();
+			cout << "draw\n";
+		}
+		//glLineWidth(1.0);
 	}
 
 	glFlush();
@@ -387,7 +475,7 @@ void display() {
  */
 void mouse(int button, int state, int x, int y) {
 	if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN) {
-		if (mode == RANGEPOINT || mode == RANGELINE) {
+		if (mode == RANGEPOINT || mode == RANGELINE||mode==RANGEPOLYGON) {
 			if (firstPoint) {
 				selectedFeatures.clear();
 				corner[0] = hw6::Point(x, screenHeight - y);
@@ -412,21 +500,30 @@ void mouse(int button, int state, int x, int y) {
 void passiveMotion(int x, int y) {
 	corner[1] = hw6::Point(x, screenHeight - y);
 
-	if ((mode == RANGEPOINT || mode == RANGELINE) && !firstPoint) {
+	if ((mode == RANGEPOINT || mode == RANGELINE||mode==RANGEPOLYGON) && !firstPoint) {
 		corner[1] = hw6::Point(x, screenHeight - y);
 		transfromPt(corner[1]);
+		//cout << "range" << endl;
 		selectedRect = hw6::Envelope(min(corner[0].getX(), corner[1].getX()),
 			max(corner[0].getX(), corner[1].getX()),
 			min(corner[0].getY(), corner[1].getY()),
 			max(corner[0].getY(), corner[1].getY()));
+		//if (mode == RANGEPOLYGON) cout << "polygon range\n";
 		rangeQuery();
 
 		glutPostRedisplay();
 	}
-	else if (mode == NNPOINT || mode == NNLINE) {
+	else if (mode == NNPOINT || mode == NNLINE||mode==NNPOLYGON) {
 		hw6::Point p(x, screenHeight - y);
 		transfromPt(p);
 		NNQuery(p);
+
+		glutPostRedisplay();
+	}
+	else if (mode == KNNPOINT || mode == KNNLINE||mode==KNNPOLYGON) {
+		hw6::Point p(x, screenHeight - y);
+		transfromPt(p);
+		KNNQuery(p);
 
 		glutPostRedisplay();
 	}
@@ -458,6 +555,18 @@ void processNormalKeys(unsigned char key, int x, int y) {
 		mode = RANGEPOINT;
 		firstPoint = true;
 		break;
+	case 'K':
+		mode = KNNLINE;
+		cout << "please enter k:";
+		cin >> kvalue;
+		cout << "finish";
+		break;
+	case 'k':
+		mode = KNNPOINT;
+		cout << "please enter k:";
+		cin >> kvalue;
+		cout << "finish";
+		break;
 	case 'B':
 	case 'b':
 		loadStationData();
@@ -476,6 +585,25 @@ void processNormalKeys(unsigned char key, int x, int y) {
 	case 'q':
 		showTree = !showTree;
 		break;
+	case 'P':
+	case 'p':
+		loadPolygonData();
+		showPolygon = !showPolygon;
+		mode = Default;
+		break;
+	case 'Z':
+		mode = RANGEPOLYGON;
+		firstPoint = true;
+		break;
+	case 'z':
+		mode = NNPOLYGON;
+		break;
+	case 'x':
+		mode = KNNPOLYGON;
+		cout << "please enter k:";
+		cin >> kvalue;
+		cout << "finish";
+		break;
 	case '+':
 		pointSize *= 1.1;
 		break;
@@ -490,7 +618,8 @@ void processNormalKeys(unsigned char key, int x, int y) {
 	case '6':
 	case '7':
 	case '8':
-		TreeTy::test(key - '0');
+		if(!(mode == KNNPOINT||mode==KNNLINE||mode==KNNPOLYGON))
+			TreeTy::test(key - '0');
 		break;
 	default:
 		mode = Default;
@@ -505,10 +634,16 @@ int main(int argc, char* argv[]) {
 		<< "  s  : range search for stations\n"
 		<< "  N  : nearest road search\n"
 		<< "  n  : nearest station search\n"
+		<< "  K  : nearest k road search\n"
+		<< "  k  : nearest k stations search\n"
 		<< "  B/b: Bicycle data\n"
 		<< "  T/t: Taxi data\n"
 		<< "  R/r: show Road\n"
 		<< "  Q/q: show Tree\n"
+		<< "  P/p: show Polygon\n"
+		<< "  Z  : range search for polygons\n"
+		<< "  z  : nearest polygon search\n"
+		<< "  x  : nearest k polygons search\n"
 		<< "  +  : increase point size\n"
 		<< "  -  : decrease point size\n"
 		<< "  1  : Test Envelope contain, interset and union\n"
@@ -522,12 +657,16 @@ int main(int argc, char* argv[]) {
 
 	pointTree = make_unique<TreeTy>();
 	roadTree = make_unique<TreeTy>();
+	polygonTree= make_unique<TreeTy>();
 	cout << "read road data" << endl;
 	loadRoadData();
 	cout << "read road data done" << endl;
 	loadStationData();
+	loadPolygonData();
 
-	glutInit_ATEXIT_HACK(&argc, argv);
+	pointTree->getEnvelope().print();
+	
+		glutInit_ATEXIT_HACK(&argc, argv);
 	glutInitWindowSize(screenWidth, screenHeight);
 	glutInitWindowPosition(0, 0);
 	glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE);

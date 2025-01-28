@@ -1,16 +1,17 @@
 ﻿
 #include "RTree.h"
+#include "Common.h"
+#include <set>
+#include <iomanip>
+#include <queue>
+#include <vector>
+#include <cmath>
 
 namespace hw6 {
 
-	RTree::RTree(int maxChildren) : Tree(maxChildren), maxChildren(maxChildren) {
-		if (maxChildren < 4) throw std::invalid_argument("maxChildren must be >= 4");
-		root = nullptr;
-	}
-
 	// RNode 实现
 	void RNode::add(RNode* child) {
-		if (childrenNum < children.size())
+		if(childrenNum < children.size())
 			children[childrenNum] = child;
 		else
 			children.push_back(child);
@@ -23,10 +24,10 @@ namespace hw6 {
 			for (auto itr = features.begin(); itr != features.end(); ++itr)
 				if (itr->getName() == f.getName())
 					return itr;
-		}();
-		features.erase(where);
-		if (features.empty())
-			features.shrink_to_fit(); // free memory unused but allocated
+			}();
+			features.erase(where);
+			if (features.empty())
+				features.shrink_to_fit(); // free memory unused but allocated
 	}
 
 	void RNode::remove(RNode* child) {
@@ -79,7 +80,7 @@ namespace hw6 {
 		}
 		else
 			for (int i = 0; i < childrenNum; ++i)
-				if(children[i] != nullptr) children[i]->draw();
+				children[i]->draw();
 	}
 
 	void RNode::rangeQuery(const Envelope& rect, std::vector<Feature>& features) {
@@ -95,9 +96,10 @@ namespace hw6 {
 					features.push_back(f);
 				}
 			}
-		} else {
+		}
+		else {
 			for (int i = 0; i < childrenNum; ++i) {
-				if(children[i] != nullptr) children[i]->rangeQuery(rect, features);
+				children[i]->rangeQuery(rect, features);
 			}
 		}
 	}
@@ -107,14 +109,63 @@ namespace hw6 {
 		/* TODO */
 		if (isLeafNode() && bbox.contain(x, y)) {
 			return this;
-		} else {
+		}
+		else {
 			for (int i = 0; i < childrenNum; ++i) {
 				if (children[i]->getEnvelope().contain(x, y)) {
 					return children[i]->pointInLeafNode(x, y);
 				}
 			}
 		}
+		// 注意查询点在R-Tree叶节点包围盒之外的情况，返回最小的节点
 		return this;
+	}
+
+	void RNode::collectAllFeatures(std::vector<Feature>& allFeatures) {
+		if (isLeafNode()) {
+			allFeatures.insert(allFeatures.end(), features.begin(), features.end());
+		}
+		else {
+			for (int i = 0; i < getChildNum(); ++i) {
+				children[i]->collectAllFeatures(allFeatures);
+			}
+		}
+	}
+
+	void RNode::KNNQuery(double x, double y, int k, std::priority_queue<Distance, std::vector<Distance>, std::less<Distance>>& pq) {
+		// 计算当前节点的包围盒到查询点的最小距离
+		double distToNode = bbox.minDistance(x, y);
+
+		// 如果堆中已有 k 个元素，且当前节点包围盒的距离大于堆中最大距离，剪枝
+		if (pq.size() == k && distToNode > pq.top().dist) {
+			return;
+		}
+		// 如果是叶节点，处理特征
+		if (isLeafNode()) {
+			for (const Feature& feature : features) {
+				double dist = feature.distance(x, y); // 计算特征到查询点的距离
+				if (pq.size() < k) {
+					pq.emplace(dist, &feature); // 堆未满，直接插入
+				}
+				else if (dist < pq.top().dist) {
+					pq.pop();                  // 替换堆顶元素
+					pq.emplace(dist, &feature);
+				}
+			}
+		}
+		else {
+			// 非叶节点，递归处理子节点
+			for (int i = 0; i < getChildNum(); ++i) {
+				if (children[i] != nullptr) {
+					children[i]->KNNQuery(x, y, k, pq);
+				}
+			}
+		}
+	}
+
+	// RTree 实现
+	RTree::RTree(int maxChildren) : Tree(maxChildren), maxChildren(maxChildren) {
+		if (maxChildren < 4) throw std::invalid_argument("maxChildren must be >= 4");
 	}
 
 	void RTree::countNode(int& interiorNum, int& leafNum) {
@@ -133,8 +184,10 @@ namespace hw6 {
 		// Task RTree construction
 		/* TODO */
 
-		//bbox = Envelope(-74.1, -73.8, 40.6, 40.8); // 注意此行代码需要更新为features的包围盒，或根节点的包围盒
-		// bbox = Envelope(std::numeric_limits<double>::infinity(), -std::numeric_limits<double>::infinity(), std::numeric_limits<double>::infinity(), -std::numeric_limits<double>::infinity());
+		bbox = Envelope(std::numeric_limits<double>::infinity(), -std::numeric_limits<double>::infinity(), std::numeric_limits<double>::infinity(), -std::numeric_limits<double>::infinity());
+		for (const Feature f : features) {
+			bbox = bbox.unionEnvelope(f.getEnvelope());
+		}
 
 		std::vector<Feature> shuffled_features = features;
 		std::default_random_engine rng(std::random_device{}());
@@ -143,231 +196,10 @@ namespace hw6 {
 		for (Feature f : shuffled_features) {
 			insertFeature(root, f);
 		}
-
-		bbox = features[0].getEnvelope();
-		for (const Feature f : features) {
-			bbox = bbox.unionEnvelope(f.getEnvelope());
-		}
-
 		root->setEnvelope(bbox);
 
 		return true;
 	}
-
-	void RTree::splitInnerNode(RNode* node) {
-		if (node->isLeafNode() || node->getChildNum() <= maxChildren) return;
-
-		std::vector<RNode*> children;
-		children.reserve(node->getChildNum());
-		for (int i = 0; i < node->getChildNum(); ++i) {
-			children.emplace_back(node->getChildNode(i));
-		}
-
-		std::vector<std::pair<RNode*, Envelope>> entry;
-		entry.reserve(children.size());
-		for (const auto& child : children) {
-			entry.emplace_back(child, child->getEnvelope());
-		}
-
-		size_t seed1 = 0, seed2 = 0;
-		double minYCenter = std::numeric_limits<double>::infinity();
-		double maxYCenter = -std::numeric_limits<double>::infinity();
-
-		for (size_t i = 0; i < entry.size(); ++i) {
-			double yCenter = (entry[i].second.getMinY() + entry[i].second.getMaxY()) / 2.0;
-			if (yCenter < minYCenter) {
-				minYCenter = yCenter;
-				seed1 = i;
-			}
-			if (yCenter > maxYCenter) {
-				maxYCenter = yCenter;
-				seed2 = i;
-			}
-		}
-
-		std::vector<RNode*> n1;
-		std::vector<RNode*> n2;
-		n1.emplace_back(entry[seed1].first);
-		n2.emplace_back(entry[seed2].first);
-
-		if (seed1 > seed2) std::swap(seed1, seed2);
-		entry.erase(entry.begin() + seed2);
-		entry.erase(entry.begin() + seed1);
-
-		Envelope newEnvelope1 = n1[0]->getEnvelope();
-		Envelope newEnvelope2 = n2[0]->getEnvelope();
-
-		// 分配剩余的子节点到两个组
-		for (const auto& childPair : entry) {
-			const RNode* child = childPair.first;
-			const Envelope& childEnv = childPair.second;
-
-			double increase1 = newEnvelope1.unionEnvelope(childEnv).getArea() - newEnvelope1.getArea();
-			double increase2 = newEnvelope2.unionEnvelope(childEnv).getArea() - newEnvelope2.getArea();
-
-			if (increase1 < increase2) {
-				n1.emplace_back(const_cast<RNode*>(child));
-				newEnvelope1 = newEnvelope1.unionEnvelope(childEnv);
-			}
-			else {
-				n2.emplace_back(const_cast<RNode*>(child));
-				newEnvelope2 = newEnvelope2.unionEnvelope(childEnv);
-			}
-		}
-
-		// 创建新的节点并分配子节点
-		RNode* newNode1 = new RNode(newEnvelope1);
-		RNode* newNode2 = new RNode(newEnvelope2);
-
-		// 将 group1 的子节点添加到 newNode1
-		for (const auto& child : n1) {
-			newNode1->add(child);
-			node->remove(child);
-		}
-
-		// 将 group2 的子节点添加到 newNode2
-		for (const auto& child : n2) {
-			newNode2->add(child);
-			node->remove(child);
-		}
-
-		// 更新 envelopes
-		newNode1->setEnvelope(newEnvelope1);
-		newNode2->setEnvelope(newEnvelope2);
-
-		// 处理父节点
-		if (node->getParent() == nullptr) {
-			// 如果当前节点是根节点，创建新的根
-			Envelope newRootEnv = newNode1->getEnvelope().unionEnvelope(newNode2->getEnvelope());
-			node->setEnvelope(newRootEnv);
-			root = node;
-			node->add(newNode1);
-			node->add(newNode2);
-		}
-		else {
-			// 将新节点添加到父节点
-			RNode* parent = node->getParent();
-			parent->add(newNode1);
-			parent->add(newNode2);
-			parent->remove(node);
-
-			// 检查父节点是否需要进一步分裂
-			if (parent->getChildNum() > maxChildren) {
-				splitInnerNode(parent);
-			}
-			else {
-				// 更新祖先节点的 envelopes
-				Envelope updatedEnv = newNode1->getEnvelope().unionEnvelope(newNode2->getEnvelope());
-				while (parent != nullptr) {
-					Envelope parentEnv = parent->getEnvelope().unionEnvelope(updatedEnv);
-					parent->setEnvelope(parentEnv);
-					parent = parent->getParent();
-				}
-			}
-		}
-	}
-
-
-	void RTree::splitLeafNode(RNode* node) {
-		// 如果不是叶节点或特征数量未超出容量，则无需分裂
-		if (!node->isLeafNode() || node->getFeatureNum() <= capacity) return;
-
-		// 收集所有特征
-		std::vector<Feature> features = node->getFeatures();
-		std::vector<std::pair<Feature, Envelope>> entry;
-		entry.reserve(features.size());
-		for (const auto& feature : features) {
-			entry.emplace_back(feature, feature.getEnvelope());
-		}
-
-		size_t seed1 = 0, seed2 = 0;
-		double minYCenter = std::numeric_limits<double>::infinity();
-		double maxYCenter = -std::numeric_limits<double>::infinity();
-
-		for (size_t i = 0; i < entry.size(); ++i) {
-			double yCenter = (entry[i].second.getMinY() + entry[i].second.getMaxY()) / 2.0;
-			if (yCenter < minYCenter) {
-				minYCenter = yCenter;
-				seed1 = i;
-			}
-			if (yCenter > maxYCenter) {
-				maxYCenter = yCenter;
-				seed2 = i;
-			}
-		}
-
-		std::vector<Feature> n1;
-		std::vector<Feature> n2;
-		n1.emplace_back(entry[seed1].first);
-		n2.emplace_back(entry[seed2].first);
-
-		if (seed1 > seed2) std::swap(seed1, seed2);
-		entry.erase(entry.begin() + seed2);
-		entry.erase(entry.begin() + seed1);
-
-		Envelope newEnvelope1 = entry.empty() ? n1[0].getEnvelope() : n1[0].getEnvelope();
-		Envelope newEnvelope2 = entry.empty() ? n2[0].getEnvelope() : n2[0].getEnvelope();
-
-		for (const auto& featurePair : entry) {
-			const Feature& feature = featurePair.first;
-			const Envelope& featureEnv = featurePair.second;
-
-			double increase1 = newEnvelope1.unionEnvelope(featureEnv).getArea() - newEnvelope1.getArea();
-			double increase2 = newEnvelope2.unionEnvelope(featureEnv).getArea() - newEnvelope2.getArea();
-
-			if (increase1 < increase2) {
-				n1.emplace_back(feature);
-				newEnvelope1 = newEnvelope1.unionEnvelope(featureEnv);
-			}
-			else {
-				n2.emplace_back(feature);
-				newEnvelope2 = newEnvelope2.unionEnvelope(featureEnv);
-			}
-		}
-
-		RNode* newNode1 = new RNode(newEnvelope1);
-		RNode* newNode2 = new RNode(newEnvelope2);
-
-		for (const auto& feature : n1) {
-			newNode1->add(feature);
-			node->remove(feature);
-		}
-
-		for (const auto& feature : n2) {
-			newNode2->add(feature);
-			node->remove(feature);
-		}
-
-		newNode1->setEnvelope(newEnvelope1);
-		newNode2->setEnvelope(newEnvelope2);
-
-		if (node->getParent() == nullptr) {
-			Envelope newRootEnv = newNode1->getEnvelope().unionEnvelope(newNode2->getEnvelope());
-			node->setEnvelope(newRootEnv);
-			root = node;
-			node->add(newNode1);
-			node->add(newNode2);
-		}
-		else {
-			RNode* parent = node->getParent();
-			parent->add(newNode1);
-			parent->add(newNode2);
-			parent->remove(node);
-
-			if (parent->getChildNum() > maxChildren) {
-				splitInnerNode(parent);
-			}
-			else {
-				Envelope updatedEnv = newNode1->getEnvelope().unionEnvelope(newNode2->getEnvelope());
-				while (parent != nullptr) {
-					Envelope parentEnv = parent->getEnvelope().unionEnvelope(updatedEnv);
-					parent->setEnvelope(parentEnv);
-					parent = parent->getParent();
-				}
-			}
-		}
-	}
-
 
 	void RTree::insertFeature(RNode* node, const Feature& feature) {
 		if (node == nullptr && root == node) {
@@ -400,6 +232,196 @@ namespace hw6 {
 					}
 				}
 				insertFeature(bestChild, feature);
+			}
+		}
+	}
+
+	void RTree::splitLeafNode(RNode* node) {
+		if(!node->isLeafNode() || node->getFeatureNum() <= capacity) return;
+
+		std::vector<Feature> features = node->getFeatures();
+		std::vector<std::pair<Feature, Envelope>> sortedFeatures;
+		for (Feature& feature : features) {
+			sortedFeatures.push_back({ feature, feature.getEnvelope() });
+		}
+
+		size_t seed1 = -1, seed2 = -1;
+		double minX = std::numeric_limits<double>::infinity();  // 最小X坐标
+		double maxX = -std::numeric_limits<double>::infinity(); // 最大X坐标
+		for (size_t i = 0; i < sortedFeatures.size(); ++i) {
+
+			double X = (sortedFeatures[i].second.getMinY() + sortedFeatures[i].second.getMaxY()) / 2;
+			if (X < minX) {
+				minX = X;//都是用水平方向的最小吗？
+				seed1 = i;
+			}
+			if (X > maxX) {
+				maxX = X;
+				seed2 = i;
+			}
+		}
+
+		std::vector<Feature> group1, group2;
+		group1.push_back(sortedFeatures[seed1].first);
+		group2.push_back(sortedFeatures[seed2].first);
+
+		if (seed1 < seed2) {
+			sortedFeatures.erase(sortedFeatures.begin() + seed1);
+			sortedFeatures.erase(sortedFeatures.begin() + seed2 - 1);
+		}
+		else {
+			sortedFeatures.erase(sortedFeatures.begin() + seed2);
+			sortedFeatures.erase(sortedFeatures.begin() + seed1 - 1);
+		}
+
+		Envelope group1Envelope = features[seed1].getEnvelope();
+		Envelope group2Envelope = features[seed2].getEnvelope();
+
+		for (const auto& feature : sortedFeatures) {
+			double increase1 = group1Envelope.unionEnvelope(feature.first.getEnvelope()).getArea() - group1Envelope.getArea();
+			double increase2 = group2Envelope.unionEnvelope(feature.first.getEnvelope()).getArea() - group2Envelope.getArea();
+
+			if (increase1 < increase2) {
+				group1.push_back(feature.first);
+			}
+			else {
+				group2.push_back(feature.first);
+			}
+		}
+
+
+		RNode* newNode1 = new RNode(group1Envelope);
+		RNode* newNode2 = new RNode(group2Envelope);
+
+		for (const auto& feature : group1) {
+			newNode1->add(feature);
+			node->remove(feature);
+			group1Envelope = group1Envelope.unionEnvelope(feature.getEnvelope());
+		}
+		for (const auto& feature : group2) {
+			newNode2->add(feature);
+			node->remove(feature);
+			group2Envelope = group2Envelope.unionEnvelope(feature.getEnvelope());
+		}
+		newNode1->setEnvelope(group1Envelope);
+		newNode2->setEnvelope(group2Envelope);
+
+		if (node->getParent() == nullptr) {
+			node->setEnvelope(node->getEnvelope().unionEnvelope(newNode1->getEnvelope()).unionEnvelope(newNode2->getEnvelope()));
+			root = node;
+			node->add(newNode1);
+			node->add(newNode2);
+		}
+		else {
+			node->getParent()->add(newNode1);
+			node->getParent()->add(newNode2);
+			RNode* parent = node->getParent();
+			node->getParent()->remove(node);
+
+			if (parent->getChildNum() > maxChildren) {
+				splitNonLeafNode(parent);
+			}
+			else {
+				while (parent != nullptr) {
+					parent->setEnvelope(parent->getEnvelope().unionEnvelope(newNode1->getEnvelope()).unionEnvelope(newNode2->getEnvelope()));
+					parent = parent->getParent();
+				}
+			}
+		}
+	}
+
+	void RTree::splitNonLeafNode(RNode* node) {
+		if (node->isLeafNode() || node->getChildNum() <= maxChildren) return;
+
+		std::vector<RNode*> children;
+		for (int i = 0; i < node->getChildNum(); ++i) {
+			children.push_back(node->getChildNode(i));
+		}
+		std::vector<std::pair<RNode*, Envelope>> sortedChildren;
+		for (const auto& child : children) {
+			sortedChildren.push_back({ child, child->getEnvelope() });
+		}
+
+		size_t seed1 = -1, seed2 = -1;
+		double minX = std::numeric_limits<double>::infinity();  // 最小X坐标
+		double maxX = -std::numeric_limits<double>::infinity(); // 最大X坐标
+		for (size_t i = 0; i < sortedChildren.size(); ++i) {
+
+			double X = (sortedChildren[i].second.getMinY() + sortedChildren[i].second.getMaxY()) / 2;
+			if (X < minX) {
+				minX = X;
+				seed1 = i;
+			}
+			if (X > maxX) {
+				maxX = X;
+				seed2 = i;
+			}
+		}
+
+		std::vector<RNode*> group1, group2;
+		group1.push_back(sortedChildren[seed1].first);
+		group2.push_back(sortedChildren[seed2].first);
+		if (seed1 < seed2) {
+			sortedChildren.erase(sortedChildren.begin() + seed1);
+			sortedChildren.erase(sortedChildren.begin() + seed2 - 1);
+		}
+		else {
+			sortedChildren.erase(sortedChildren.begin() + seed2);
+			sortedChildren.erase(sortedChildren.begin() + seed1 - 1);
+		}
+
+		Envelope group1Envelope = group1[0]->getEnvelope();
+		Envelope group2Envelope = group2[0]->getEnvelope();
+
+		for (const auto& child : sortedChildren) {
+			double increase1 = group1Envelope.unionEnvelope(child.first->getEnvelope()).getArea() - group1Envelope.getArea();
+			double increase2 = group2Envelope.unionEnvelope(child.first->getEnvelope()).getArea() - group2Envelope.getArea();
+
+			if (increase1 < increase2) {
+				group1.push_back(child.first);
+			}
+			else {
+				group2.push_back(child.first);
+			}
+		}
+
+
+		RNode* newNode1 = new RNode(group1Envelope);
+		RNode* newNode2 = new RNode(group2Envelope);
+
+		for (const auto& child : group1) {
+			newNode1->add(child);
+			node->remove(child);
+			group1Envelope = group1Envelope.unionEnvelope(child->getEnvelope());
+		}
+		for (const auto& child : group2) {
+			newNode2->add(child);
+			node->remove(child);
+			group2Envelope = group2Envelope.unionEnvelope(child->getEnvelope());
+		}
+		newNode1->setEnvelope(group1Envelope);
+		newNode2->setEnvelope(group2Envelope);
+
+		if (node->getParent() == nullptr) {
+			node->setEnvelope(node->getEnvelope().unionEnvelope(newNode1->getEnvelope()).unionEnvelope(newNode2->getEnvelope()));
+			root = node;
+			node->add(newNode1);
+			node->add(newNode2);
+		}
+		else {
+			node->getParent()->add(newNode1);
+			node->getParent()->add(newNode2);
+			RNode* parent = node->getParent();
+			node->getParent()->remove(node);
+
+			if (parent->getChildNum() > maxChildren) {
+				splitNonLeafNode(parent);
+			}
+			else {
+				while (parent != nullptr) {
+					parent->setEnvelope(parent->getEnvelope().unionEnvelope(newNode1->getEnvelope()).unionEnvelope(newNode2->getEnvelope()));
+					parent = parent->getParent();
+				}
 			}
 		}
 	}
@@ -446,5 +468,157 @@ namespace hw6 {
 
 		return true;
 	}
+
+	void RTree::getAllFeatures(std::vector<Feature>& features) {
+		if (root == nullptr)
+			return;
+		root->collectAllFeatures(features);
+	}
+
+	bool RTree::KNNQuery(double x, double y, int k, std::vector<Feature>& result) {
+		if (!root || !(root->getEnvelope().contain(x, y)))
+			return false;
+		result.clear();
+		std::priority_queue<Distance, std::vector<Distance>, std::less<Distance>> pq;//最小堆
+
+		root->KNNQuery(x, y, k, pq);
+
+		// 将堆中的元素转换为结果
+		while (!pq.empty()) {
+			result.push_back(*pq.top().feature);
+			pq.pop();
+		}
+		std::cout << "knn查询完成" << std::endl;
+		return true;
+
+	}
+
+	//	if (!root || !(root->getEnvelope().contain(x, y)))
+	//		return false;
+	//	features.clear();
+
+	//	std::priority_queue<Distance, std::vector<Distance>, std::greater<Distance>> pq;
+	//	if(!root->isLeafNode())
+	//		pq.push(Distance(root, root->getEnvelope().maxDistance2Envelope(x, y)));
+
+	//	double maxdist = -std::numeric_limits<double>::infinity();
+	//	while (!pq.empty() && features.size() < k) {
+	//		Distance top = pq.top();
+	//		pq.pop();
+	//		// 如果是叶节点
+	//		if (top.pNode->isLeafNode()) {
+	//			// 遍历叶节点的所有元素，选择距离最短的k个元素
+	//			for (size_t i = 0; i < top.pNode->getFeatureNum(); i++) {
+	//				Feature feature = top.pNode->getFeature(i);
+	//				double distance = feature.distance(x, y); // 假设Feature类有一个获取距离的方法
+
+	//				// 如果features的大小小于k，直接添加
+	//				if (features.size() < k) {
+	//					bool hasFeature = false;
+	//					for (auto& f : features) {
+	//						if (f.getName() == feature.getName()) {
+	//							hasFeature = true;
+	//							break;
+	//						}
+	//					}
+	//					if (!hasFeature) {
+	//						features.push_back(feature);
+	//					}
+	//				}
+	//				else {
+	//					// 找到features中距离最远的元素
+	//					auto max_distance_feature_iter = std::max_element(features.begin(), features.end(),
+	//						[x, y](const Feature& a, const Feature& b) {
+	//							return a.distance(x, y) < b.distance(x, y);
+	//						});
+
+	//					// 如果当前特征的距离小于最远距离的元素，替换它
+	//					if (distance < (*max_distance_feature_iter).distance(x, y)) {
+	//						*max_distance_feature_iter = feature;
+	//					}
+	//				}
+	//				maxdist = std::max(maxdist, distance);
+	//			}
+	//		}
+	//		else {
+	//			// 遍历非叶节点的所有子节点
+	//			for (int i = 0; i < top.pNode->getChildNum(); i++) {
+	//				// 计算子节点的距离
+	//				double dist = top.pNode->getChildNode(i)->getEnvelope().maxDistance2Envelope(x, y);
+	//				// 将子节点加入优先队列
+	//				pq.push(Distance(top.pNode->getChildNode(i), dist));
+	//			}
+	//		}
+	//	}
+	//	//std::cout << maxdist << std::endl;
+	//	Envelope rect(x - maxdist, x + maxdist, y - maxdist, y + maxdist);
+	//	features.clear();
+	//	rangeQuery(rect, features);
+	//	return true;
+	//}
+
+
+
+	/*void RTree::getLeafNodes(std::vector<RNode*>& leafNodes) {
+		std::queue<RNode*> q;
+		q.push(root);
+		while (!q.empty()) {
+			RNode* node = q.front();
+			q.pop();
+			if (node->isLeafNode()) {
+				leafNodes.push_back(node);
+			}
+			else {
+				for (int i = 0; i < node->getChildNum(); ++i) {
+					q.push(node->getChildNode(i));
+				}
+			}
+		}
+	}*/
+
+	void RNode::leafNodesQuery(const Envelope& rect, std::vector<RNode*>& leafNodes) {
+		if (isLeafNode()) {
+			if (rect.intersect(getEnvelope())) {
+				leafNodes.push_back(this);
+			}
+		}
+		else {
+			for (int i = 0; i < childrenNum; ++i) {
+				children[i]->leafNodesQuery(rect, leafNodes);
+			}
+		}
+	}
+
+	void RTree::leafNodesQuery(const Envelope& rect, std::vector<RNode*>& leafNodes) {
+		if (root != nullptr) {
+			root->leafNodesQuery(rect, leafNodes);
+		}
+	}
+
+	void RTree::spatialJoin(double distance, RTree* tree, std::vector<std::pair<Feature, Feature>>& result, int mode) {
+		//RTree* pTree = dynamic_cast<RTree*>(tree);
+		std::vector<Feature> allFeature,features;
+		getAllFeatures(allFeature);
+		std::cout << allFeature.size() << std::endl;
+		tree->getAllFeatures(features);
+
+		for (auto& fb : features) {
+			double dist = std::numeric_limits<double>::infinity();
+			for (auto& fa : allFeature) {
+				if (mode == POINTJOINLINE)
+					dist = static_cast<const Point*>(fa.getGeom())->distance(static_cast<const LineString*>(fb.getGeom()));
+				else if (mode == LINEJOINPOINT)
+					dist = static_cast<const LineString*>(fa.getGeom())->distance(static_cast<const Point*>(fb.getGeom()));
+
+				if (dist <= distance) {
+					result.push_back(std::make_pair(fa, fb));
+				}
+
+			}
+		}
+		std::cout << "结果如下, 一共找到:" << result.size() << std::endl;
+
+	}
+
 
 } // namespace hw6
