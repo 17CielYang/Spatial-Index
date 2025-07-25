@@ -1,4 +1,4 @@
-# 如何运行作业
+# 如何运行
 
 - 安装[CMake](https://cmake.org/download/)，版本大于等于3.16
   - 如果使用的 IDE 为 Visual Studio，也可用内置的 CMake
@@ -7,10 +7,6 @@
   - 使用 Visual Studio 的同学，注意在 `项目 / hw6 project的CMake设置` 中点击”编辑JSON“，更改 `generator` 为本机适合的版本（如 "Visual Studio 16 2019 Win64" ），使用默认的 "Ninja" 作为 `generator` 可能有未知问题
   - 使用 Mac OS 或 Linux 的同学请使用 VS Code 或其他 IDE 打开
 - 无需安装其他依赖，CMake 构建成功后可运行
-
-# 需要补全的代码
-
-- 标记为 `[[optional]]` 的是附加题扩展要求
 
 ## Geometry.cpp
 
